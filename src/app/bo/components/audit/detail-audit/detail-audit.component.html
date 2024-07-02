@@ -1,0 +1,67 @@
+<div class="container">
+    <div>
+        <h2>Detail Audit</h2>
+    </div>
+    <form>
+        <div class="p-grid p-fluid">
+            <div hidden class="p-col-12">
+                <label for="auditId">ID</label>
+                <input type="number" pInputText [(ngModel)]="currentAudit.id" id="auditId" name="auditId" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditName">Nom Audit</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.nomAudit" id="auditName" name="auditName" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="dateCreation">Date Audit</label>
+                <p-calendar [(ngModel)]="currentAudit.dateAudit" id="dateCreation" name="dateCreation" class="form-control" [dateFormat]="'yy-mm-dd'"></p-calendar>
+            </div>
+            <div class="p-col-12">
+                <label for="auditStatus">Status</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.status" id="auditStatus" name="auditStatus" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditDescription">Description</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.description" id="auditDescription" name="auditDescription" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditType">Type Audit</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.typeAudit" id="auditType" name="auditType" class="form-control">
+            </div>
+        </div>
+    </form>
+
+
+    <p-card class="m-1 mt-1 mb-1">
+        <p-table responsiveLayout="scroll" [value]="constats" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="constats.length" [lazy]="true" [sortOrder]="1" sortField="id">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="constat">Constat <p-sortIcon field="constat"></p-sortIcon></th>
+              <th pSortableColumn="typeConstat.type">Type <p-sortIcon field="typeConstat.type"></p-sortIcon></th>
+              <th pSortableColumn="checklist.name">Checklist <p-sortIcon field="checklist.name"></p-sortIcon></th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-constat>
+            <tr>
+              <td>{{ constat.constat }}</td>
+              <td>{{ constat.typeConstat?.type }}</td>
+              <td>{{ constat.checklist?.name }}</td>
+              <td class="text-center">
+                <div class="cm-action-btn">
+                  <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left" (click)="openUpdateDialog(constat)"></i>
+                  <i pButton pRipple class="p-button-rounded p-button-danger ml-2" icon="pi pi-trash" tooltipPosition="left" (click)="deleteConstat(constat)"></i>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" class="text-center">Aucun Constat trouvé</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-card>
+      
+
+</div>

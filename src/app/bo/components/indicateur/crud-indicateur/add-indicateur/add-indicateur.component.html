@@ -1,0 +1,68 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="text-center flex justify-content-center">
+    <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+</div>
+<br>
+<form [formGroup]="clientForm" (ngSubmit)="SubmitForm()">
+    <div class="flex w-100 mb-2">
+        <div class="field  col-4">
+            <label class="mb-2">Titre * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && indicateurFormErrors?.Libelle.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Libelle" placeholder="...">
+        </div>
+        <div class="field col-4">
+            <label class="mb-2">Fréquence * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && indicateurFormErrors?.Frequence.errors">
+                ( Invalide )
+            </span>
+            <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "  [showClear]="true"
+              [options]="listFrequence" formControlName="Frequence" [filter]="true" placeholder="Sélectionnez une fréquence"
+              emptyFilterMessage="Aucune fréquence" emptyMessage="Aucune fréquence" scrollHeight="130px">
+            </p-dropdown>
+        </div>
+        <div class="field  col-2">
+            <label class="mb-2">Cible * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && indicateurFormErrors?.Cible.errors">
+                ( Invalide )
+            </span>
+            <br>
+            <p-inputNumber formControlName="Cible"  inputId="minmaxfraction" mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="3" [max]="100"> </p-inputNumber>
+          </div>
+          <div class="field  col-2">
+            <label class="mb-2">Tolerance * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && indicateurFormErrors?.Tolerance.errors">
+                ( Invalide )
+            </span>
+            <br>
+            <p-inputNumber formControlName="Tolerance"  inputId="minmaxfraction" mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="3" [max]="100"> </p-inputNumber>
+        </div>
+    </div>
+    <div class="flex w-100 mb-2">
+        <div class="field  col-8">
+            <label class="mb-2">Formule * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && indicateurFormErrors?.Formule.errors">
+                ( Invalide )
+            </span>
+            <textarea pInputText type="text" formControlName="Formule" placeholder="..."></textarea>
+          </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer"
+                (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Ajouter" (click)="SubmitForm()"
+                    [disabled]="Disabled || is_loading"></button>
+            </div>
+        </div>
+    </div>
+</form>

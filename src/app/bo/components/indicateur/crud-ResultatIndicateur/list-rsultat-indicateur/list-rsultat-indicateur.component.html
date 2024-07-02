@@ -1,0 +1,166 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Recherchez les Résultats indicateurs" [toggleable]="true">
+    <form [formGroup]="FormmulaireRecherche" (ngSubmit)="SearchResultatIndicateur()">
+        <br>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-3">
+                <label class="mb-2">Année : </label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                    [showClear]="true" [options]="listAnnee" formControlName="annee" [filter]="true"
+                    placeholder="Sélectionnez une Année" emptyFilterMessage="Aucune Année"
+                    emptyMessage="Aucune Année" scrollHeight="130px">
+                </p-dropdown>
+            </div>
+            <div class="field col-3">
+                <label>Période</label>
+                <input pInputText type="text" formControlName="periode" placeholder="...">
+            </div>
+            <div class="field col-6 button-container">
+                <button pButton pRipple class="p-button-success"
+                    *ngIf="generalService.canActivate('Résultat Indicateurs-Ajouter') && generalService.canActivatePilote(detailProcessus)" icon="pi pi-plus-circle" iconPos="left"
+                    type="button" (click)="ShowFormulaire('Ajouté')" tooltipPosition="bottom" label="Créer un résultat"
+                    pTooltip="Cliquez ici pour créer un nouvel Résultat Indicateur">
+                </button>
+                <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left"
+                    label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;">
+                </button>
+                <div>
+                    <button pButton pRipple class="ml-2 p-button-rounded" icon="pi pi-filter-slash" tooltipPosition="left"
+                        pTooltip="Cliquez ici pour vider le formulaire" (click)="ClearSearch()">
+                    </button>
+                </div>
+            </div>
+        </div> 
+    </form>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-card class="m-1 mt-1 mb-1">
+    <p-table responsiveLayout="scroll" [value]="listIndicateursResultat" styleClass="p-datatable-responsive-demo"
+        (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+        [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+        [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="label">
+        <!-- ------------------------------- Header -------------------------------- -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Annee">
+                    Année <p-sortIcon field="Annee"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Periode">
+                    Période <p-sortIcon field="Periode"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Resultat">
+                    Résultat <p-sortIcon field="Resultat"></p-sortIcon>
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </ng-template>
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+            <tr>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Annee}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Periode}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Resultat}}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Résultat Indicateurs-Modifier') && generalService.canActivatePilote(p)"
+                                pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                                tooltipPosition="left"
+                                pTooltip="Modifier le résultat : {{p?.Periode}} ?"
+                                (click)="ShowFormulaire('modifier',p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Résultat Indicateurs-Supprimer') && generalService.canActivatePilote(p)" pButton pRipple
+                            class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                            pTooltip="Supprimer le résultat ? : {{p?.Periode}} ?" (click)="DeleteAnResultatIndicateur(p)">
+                         </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Résultat Indicateurs-Détail')"
+                               pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info"
+                               tooltipPosition="right" pTooltip="Afficher le détail du résultat : {{p?.Periode}} ?"
+                               (click)="ShowDetailResulatIndicateur(p)">
+                            </i>
+                        </ng-container>                          
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '20vw'}">
+    <app-update-resultat-indicateur [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-resultat-indicateur>
+</p-dialog> 
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+ <p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création Résultat "
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'width': '30vw'}">
+    <app-add-rsultat-indicateur *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+    </app-add-rsultat-indicateur>
+</p-dialog> 
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de detail                            -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" [resizable]="false" header="{{Detail_info}}" [(visible)]="if_show_detail" 
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'width': '50vw'}">
+    <p-card>
+        <app-detail-rsultat-indicateur [data_selected_Resultat_indicateur]="data_selected_Resultat_indicateur" *ngIf="if_show_detail">
+        </app-detail-rsultat-indicateur>
+    </p-card>
+</p-dialog>
+
+<p-dialog dismissableMask="true" [resizable]="false" header="Les documents" [(visible)]="if_show_doc" [modal]="true"
+    [baseZIndex]="10000" [style]="{'min-width': '30vw'}">
+    <app-impressions [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_doc"></app-impressions>
+</p-dialog> 
+
+

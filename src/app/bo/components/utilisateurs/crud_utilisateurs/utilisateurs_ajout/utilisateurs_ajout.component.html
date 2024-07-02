@@ -1,0 +1,75 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<form [formGroup]="Formmulaire_ajout_utilisateur" (ngSubmit)="SubmitForm()">
+    <div class="text-center flex justify-content-center mb-4">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <p-fieldset legend="Informations générales">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <label>Nom complet de l'utilisateur : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.nom_complet_utilisateur.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="nom_complet_utilisateur"  placeholder="..."
+                    >
+            </div>
+            <div class="field col">
+                <label>Rôle : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.id_role.errors">
+                    * ( Invalide )
+                </span>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                    [options]="liste_roles" formControlName="id_role" [filter]="true" placeholder="..."
+                    emptyFilterMessage="Aucun rôle" emptyMessage="Aucun rôle" scrollHeight="130px" appendTo="body">
+                    <ng-template let-element pTemplate="item">
+                        <div class="flex justify-content-between">
+                            <span class="font-12">{{element?.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <label>Email : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.email.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="email" placeholder="Email" minlength="1"
+                    maxlength="300" />
+            </div>
+            <div class="field col">
+                <label>Login : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.username.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="username" placeholder="Login" minlength="1"
+                    maxlength="300" />
+            </div>
+            <div class="field col">
+                <label>Mot de passe : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.password.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="password" formControlName="password" placeholder="Mot de passe" minlength="1"
+                    maxlength="300" />
+            </div>
+        </div>
+    </p-fieldset>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer" (click)="ClosePopUp(false)">
+            </button>
+        </div>
+        <div>
+            <button pButton pRipple type="submit" class="p-button-success" label="Ajouter"
+                [disabled]="Disabled || is_loading">
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,81 @@
+<div class="container mt-4">
+
+    
+
+    <br>
+    <hr>
+
+    <app-loader *ngIf="is_loading"></app-loader>
+
+    <!-- Tableau des checklists -->
+    <p-card class="m-1 mt-1 mb-1">
+        <p-table responsiveLayout="scroll" [value]="checklists" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="checklists.length" [lazy]="true" [sortOrder]="1" sortField="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="typeAudit.type">Type d'Audit <p-sortIcon field="typeAudit.type"></p-sortIcon></th>
+                    <th pSortableColumn="processusID">Processus <p-sortIcon field="processusID"></p-sortIcon></th>
+                    <th pSortableColumn="smQ_ID">SMQ <p-sortIcon field="smQ_ID"></p-sortIcon></th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-checklist>
+                <tr>
+                    <td>{{ checklist.id }}</td>
+                    <td>{{ checklist.typeAudit?.type }}</td>
+                    <td>{{ checklist.processusID }}</td>
+                    <td>{{ checklist.smQ_ID }}</td>
+                    <td class="text-center">
+                        <div class="cm-action-btn">
+                            <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left" (click)="openUpdateDialog(checklist)"></i>
+                            <i pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right" (click)="deleteChecklist(checklist)"></i>
+                            <i pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info" tooltipPosition="right" [routerLink]="['/listCheckList', checklist.id]"></i>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+
+    <!-- Bouton pour ajouter une nouvelle checklist -->
+    <div class="flex justify-content-center mt-3">
+        <button class="btn btn-success" (click)="openAddChecklistModal()">Ajouter Checklist</button>
+    </div>
+
+    <!-- Modal pour ajouter une checklist -->
+    <div class="modal fade" #addModal tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Ajouter Checklist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulaire pour ajouter une checklist -->
+                    <!-- Ajoutez ici les champs de formulaire nécessaires pour créer une nouvelle checklist -->
+                </div>
+               <div class="modal-body">
+                    <app-add-checklist [addAudit]="addChecklist" (closeAddDialog)="closeAddDialog()"></app-add-checklist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal pour mettre à jour une checklist -->
+    <div class="modal fade" #updateModal tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Modifier Checklist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <app-update-checklist [selectedAudit]="selectedChecklist" (closeUpdateDialog)="closeUpdateDialog()"></app-update-checklist>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdateDialog()">Fermer</button>
+                    <button type="button" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

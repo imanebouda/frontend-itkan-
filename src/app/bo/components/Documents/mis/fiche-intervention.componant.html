@@ -1,0 +1,894 @@
+<div class="mt-5 interv">
+    <div id="content-inter">
+        <table topheader class="header_table" style="width: 100%;margin-bottom:3px;">
+            <tr>
+                <th rowspan="3" class="border">
+                    <img src="#logo#" class="imglogo" onerror="this.imageUrl='assets/layout/images/user-cicrle.svg'">
+
+                </th>
+                <th class="border">SYSTEME DE MANAGEMENT DE LA QUALITE</th>
+                <th class="border">EN-INV-03</th>
+            </tr>
+            <tr>
+                <th class="border" rowspan="2"><b>FICHE D'INTERVENTION</b></th>
+                <th class="border">VERSION : 04</th>
+            </tr>
+            <tr>
+                <th class="border">Page 1 sur 2</th>
+            </tr>
+        </table>
+        <table class="header_fiche" style="width: 100%;margin-bottom: 2px;">
+            <tr>
+                <th><span>FICHE D'INTERVENTION N : </span></th>
+                <th class="textcenter"><span>#numero#</span></th>
+                <th class="textright"><span>Date :</span> #date#</th>
+            </tr>
+        </table>
+        <table class="header_fiche header_numeros tableinter" style="width: 100%;margin-bottom: 5px;">
+            <tr>
+                <th class="bgeee">N° Devis ou Ordre de service : #num_devis#</th>
+                <th class="bgeee">N° Bon de livraison: #num_bon_liv#</th>
+                <th class="bgeee">N° Facture : #num_facture#</th>
+            </tr>
+        </table>
+        <table class="detailveh tableinter" style="width: 100%;">
+            <tr>
+                <th class="border bgeee">IDENTIFICATION VEHICULE</th>
+            </tr>
+        </table>
+        <table class="clientident tableinter" style="width: 100%;">
+            <tr>
+                <th class="width-25">MARQUE</th>
+                <th class="textleft">#Vehiculemarque#</th>
+                <th>DATE DE MEC</th>
+                <th class="textleft">#VehiculeDate_mec#</th>
+            </tr>
+            <tr>
+                <th class="width-25">TYPE</th>
+                <th class="textleft">#Vehiculetype#</th>
+                <th>N° DE CHASSIS</th>
+                <th class="textleft">#Vehiculenumero_chassi#</th>
+            </tr>
+            <tr>
+                <th class="width-25">IMATRICULATION</th>
+                <th class="textleft">#Vehiculeimmatricule#</th>
+                <th>KILOMETRAGE</th>
+                <th class="textleft">#kilometrage#</th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <div class="flex flex-wrap gap-3">
+                        <label>Appareil sous garantie : </label>
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">Oui</label>
+                            <img class="iconcheck" src="#ouiintervention_sous_garantie#">
+                        </div>
+
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">Non</label>
+                            <img class="iconcheck" src="#nonintervention_sous_garantie#">
+                        </div>
+                    </div>
+                </th>
+                <th colspan="2">
+                    <div class="flex flex-wrap gap-3">
+                        <label>DEPOSE POUR ECHANGE STANDARD : </label>
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">Oui</label>
+                            <img class="iconcheck" src="#ouiEchange_standard#">
+                        </div>
+
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">Non</label>
+                            <img class="iconcheck" src="#nonEchange_standard#">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <table class="tableinter" style="width: 100%;">
+            <tr>
+                <th>
+                    <div class="flex align-items-center">
+                        <label for="tt">Installation</label>
+                        <img class="iconcheck" src="#IN#">
+                    </div>
+                </th>
+                <th>
+                    <div class="flex align-items-center">
+                        <label for="tt">Vérification aprés installation</label>
+                        <img class="iconcheck" src="#VAI#">
+                    </div>
+                </th>
+                <th>
+                    <div class="flex align-items-center">
+                        <label for="tt">Vérification périodique</label>
+                        <img class="iconcheck" src="#VP#">
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <table class="tableinter" style="width: 100%;">
+            <tr>
+                <th colspan="1">
+                    <div class="flex align-items-center justify-content-center">
+                        <label for="tt">Piste</label>
+                        <div class="border-ligne">
+                            #Piste#
+                        </div>
+                    </div>
+                </th>
+                <th colspan="1">
+                    <div class="flex align-items-center justify-content-center">
+                        <label for="tt">Banc</label>
+                        <div class="border-ligne">
+                            #Banc#
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <table class="detailnatureheader tableinter" style="width: 100%;">
+            <tr>
+                <th class="border bgeee">RECEVABILITE VEHICULE</th>
+            </tr>
+        </table>
+        <table class="detailnatureheader tableinter" style="width: 100%;">
+            <tr>
+                <th class="border" rowspan="2">ELEMENT</th>
+                <th colspan="2">ETAT</th>
+                <th>Température à proximité du tachygraphe :
+                    #temperature_tachygraphe# °C
+                </th>
+            </tr>
+            <tr>
+                <th>OK</th>
+                <th>N.OK</th>
+                <th rowspan="10" class="textleft" style="vertical-align: top;"><span>Observations :
+                    </span>#observation_receb#</th>
+            </tr>
+            <tr>
+                <th class="textleft">VEHICULE A VIDE</th>
+                <th class="center-text">#ouiVehicule_vide#</th>
+                <th class="center-text">#nonVehicule_vide#</th>
+            </tr>
+            <tr>
+                <th class="textleft">VEHICULE EN BON ETAT DE MARCHE</th>
+                <th class="center-text">#ouiVehicule_marche#</th>
+                <th class="center-text">#nonVehicule_marche#</th>
+            </tr>
+            <tr>
+                <th class="textleft">TACHYGRAPHE</th>
+                <th class="center-text">#ouitachygraphe#</th>
+                <th class="center-text">#nontachygraphe#</th>
+            </tr>
+            <tr>
+                <th class="textleft">GENERATEUR CAPTEUR</th>
+                <th class="center-text">#ouiGenerateur_capteur#</th>
+                <th class="center-text">#nonGenerateur_capteur#</th>
+            </tr>
+            <tr>
+                <th class="textleft">PRESENCE DES SCELLEMENTS</th>
+                <th class="center-text">#ouiPresence_scellements#</th>
+                <th class="center-text">#nonPresence_scellements#</th>
+            </tr>
+            <tr>
+                <th class="textleft">FAISCEAU ALIMENTATION / ADR </th>
+                <th class="center-text">#ouiFaisceau_alimentation_ADR#</th>
+                <th class="center-text">#nonFaisceau_alimentation_ADR#</th>
+            </tr>
+            <tr>
+                <th class="textleft">FAISCEAU DE VITESSE</th>
+                <th class="center-text">#ouiFaisceau_vitesse#</th>
+                <th class="center-text">#nonFaisceau_vitesse#</th>
+            </tr>
+            <tr>
+                <th class="textleft">ETAT TABLEAU DE BORD</th>
+                <th class="center-text">#ouiEtat_tableau_bord#</th>
+                <th class="center-text">#nonEtat_tableau_bord#</th>
+            </tr>
+            <tr>
+                <th class="textleft">ETAT BOITE DE VITESSE</th>
+                <th class="center-text">#ouiEtat_boite_vitesse#</th>
+                <th class="center-text">#nonEtat_boite_vitesse#</th>
+            </tr>
+        </table>
+        <table class="detailnatureheader tableinter" style="width: 100%;">
+            <tr>
+                <th class="border bgeee">Usure des pneus</th>
+            </tr>
+        </table>
+        <div class="flexrow">
+            <table class="tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border">PG EXT</th>
+                    <th class="border">Profondeur en mm</th>
+                </tr>
+                <tr>
+                    <th class="border">Point 1</th>
+                    <th class="border textright">
+                        #profondeur_1_pg_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 2</th>
+                    <th class="border textright">
+                        #profondeur_2_pg_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 3</th>
+                    <th class="border textright">
+                        #profondeur_3_pg_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 4</th>
+                    <th class="border textright">
+                        #profondeur_4_pg_ext#
+                    </th>
+                </tr>
+            </table>
+            <table class="tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border">PG INT</th>
+                    <th class="border">Profondeur en mm</th>
+                </tr>
+                <tr>
+                    <th class="border">Point 1</th>
+                    <th class="border textright">
+                        #profondeur_1_pg_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 2</th>
+                    <th class="border textright">
+                        #profondeur_2_pg_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 3</th>
+                    <th class="border textright">
+                        #profondeur_3_pg_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 4</th>
+                    <th class="border textright">
+                        #profondeur_4_pg_int#
+                    </th>
+                </tr>
+            </table>
+            <table class="tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border">PD EXT</th>
+                    <th class="border">Profondeur en mm</th>
+                </tr>
+                <tr>
+                    <th class="border">Point 1</th>
+                    <th class="border textright">
+                        #profondeur_1_pd_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 2</th>
+                    <th class="border textright">
+                        #profondeur_2_pd_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 3</th>
+                    <th class="border textright">
+                        #profondeur_3_pd_ext#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 4</th>
+                    <th class="border textright">
+                        #profondeur_4_pd_ext#
+                    </th>
+                </tr>
+            </table>
+            <table class="tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border">PD INT</th>
+                    <th class="border">Profondeur en mm</th>
+                </tr>
+                <tr>
+                    <th class="border">Point 1</th>
+                    <th class="border textright">
+                        #profondeur_1_pd_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 2</th>
+                    <th class="border textright">
+                        #profondeur_2_pd_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 3</th>
+                    <th class="border textright">
+                        #profondeur_3_pd_int#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border">Point 4</th>
+                    <th class="border textright">
+                        #profondeur_4_pd_int#
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <table class="clientident tableinter" style="width: 100%;">
+            <tr>
+                <th class="textleft" colspan="2">MARQUE PNEUS :
+                    #marque_pg_ext#
+                </th>
+                <th class="textleft" colspan="1">DIMENSIONS : #dimensionPneus#</th>
+                <th class="textleft" colspan="2">PRESSION : #pressionPneus# Bar</th>
+            </tr>
+        </table>
+        <table class="detailnatureheader tableinter" style="width: 100%;">
+            <tr>
+                <th class="border bgeee">IDENTIFICATION CHRONOTACHYGRAPHE</th>
+            </tr>
+        </table>
+        <table class="clientident tableinter" style="width: 100%;">
+            <tr>
+                <th class="textleft">Marque :
+                    #TachygrapheMarque#
+                </th>
+                <th class="textleft">TYPE :
+                    #TachygrapheTypeMarque#
+                </th>
+                <th class="textleft">N° HOMO/MA :
+                    #TachygrapheNumHomologation#
+                </th>
+            </tr>
+            <tr>
+                <th class="textleft">N° SERIE : #Tachygraphenum_serie#
+                </th>
+                <th class="textleft">DATE : #Tachygraphedate_fabrication#
+                </th>
+                <th class="textleft">
+                    <div class="flex flex-wrap gap-3">
+                        <label>VOLTAGE : </label>
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">12V</label>
+                            <div class="border-ligne">
+                                #12Tachygraphevoltage#
+                            </div>
+                        </div>
+
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">24V</label>
+                            <div class="border-ligne">
+                                #24Tachygraphevoltage#
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <table class="tableinter" style="width: 100%;">
+            <tr>
+                <th class="border" style="text-align: center;">
+                    <div class="flex flex-wrap gap-3 justify-content-center">
+                        <label>Vitesse maximal : </label>
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">125Km/h</label>
+                            <div class="border-ligne">
+                                #oui_125_vitesse#
+                            </div>
+                        </div>
+
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">140Km/h</label>
+                            <div class="border-ligne">
+                                #oui_140_vitesse#
+                            </div>
+                        </div>
+                        <div class="flex align-items-center">
+                            <label for="ingredient1" class="ml-2">180Km/h</label>
+                            <div class="border-ligne">
+                                #oui_180_vitesse#
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="textleft">
+                    <div class="flex align-items-center">
+                        <label for="tt">Conformité carnet métrologique  : </label>
+                        <img class="iconcheck" src="#ouiConformite_carnet_metrologique#">
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <table class="detailnatureheader tableinter" style="width: 100%;">
+            <tr>
+                <th class="border bgeee">INSTALLATION ET ETALONNAGE CHRONOTACHYGRAPHE</th>
+            </tr>
+        </table>
+        <table class="clientident tableinter" style="width: 100%;">
+            <tr>
+                <th class="textleft">W1 : #w1#</th>
+                <th class="textleft">W2 : #w2#</th>
+                <th class="textleft">W3 : #w3#</th>
+                <th class="textleft">NV W : #nv_w#</th>
+                <th class="textleft">AN W : #wanc#</th>
+            </tr>
+            <tr>
+                <th class="textleft">LD : #ld#</th>
+                <th class="textleft">LG : #lg#</th>
+                <th class="textleft">L moyen : #l_moyen#</th>
+                <th class="textleft">DIL : #dil#</th>
+                <th class="textleft">AN L : #an_l#</th>
+            </tr>
+            <tr>
+                <th class="textleft" style="background-color: #eee;">PLOMBAGES :
+                </th>
+                <th class="textleft">
+                    <div class="flex align-items-center">
+                        <label for="tt">Générateur : </label>
+                        <div class="border-ligne">
+                            #ouiGenerateur_capteur#
+                        </div>
+                    </div>
+                </th>
+                <th colspan="3" class="textleft">
+                    <div class="flex align-items-center">
+                        <label for="tt">Cache prise arriére : </label>
+                        <div class="border-ligne">
+                            #ouicache_price#
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <div>
+            <table class="detailnatureheader tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border bgeee">VERIFICATION CHRONOTACHYGRAPHE</th>
+                </tr>
+            </table>
+            <table class="detailnatureheader tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border">Critère</th>
+                    <th>Conforme</th>
+                    <th>Non Conforme</th>
+                    <th style="width: 40%;">Observation</th>
+                </tr>
+                <tr>
+                    <th class="textleft">L’identification du tachygraphe</th>
+                    <th>
+                        #ouiconforme_identification#
+                    </th>
+                    <th>
+                        #nonconforme_identification#
+                    </th>
+                    <th rowSpan="5">
+                        #verificationobservations#</th>
+                </tr>
+                <tr>
+                    <th class="textleft">La marque de la vérification première</th>
+                    <th>
+                        #ouiconforme_marque_verification#
+                    </th>
+                    <th>
+                        #nonconforme_marque_verification#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft">Les scellements du chronotachygraphe</th>
+                    <th>
+                        #ouiconforme_scellements_chrono#
+                    </th>
+                    <th>
+                        #nonconforme_scellements_chrono#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft">Le bon fonctionnement du Tachygraphe</th>
+                    <th>
+                        #ouibon_fonctionnement_tachygraphe#
+                    </th>
+                    <th>
+                        #nonbon_fonctionnement_tachygraphe#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft">La chaine cinématique</th>
+                    <th>
+                        #ouichaine_cinematique#
+                    </th>
+                    <th>
+                        #nonchaine_cinematique#
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div class="mt-5">
+            <table topheader class="header_table" style="width: 100%;margin-bottom:3px;">
+                <tr>
+                    <th rowspan="3" class="border">
+                        <img src="#logo#" class="imglogo"
+                            onerror="this.imageUrl='assets/layout/images/user-cicrle.svg'">
+
+                    </th>
+                    <th class="border">SYSTEME DE MANAGEMENT DE LA QUALITE</th>
+                    <th class="border">EN-INV-03</th>
+                </tr>
+                <tr>
+                    <th class="border" rowspan="2"><b>FICHE D'INTERVENTION</b></th>
+                    <th class="border">VERSION : 04</th>
+                </tr>
+                <tr>
+                    <th class="border">Page 2 sur 2</th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr class="bg-table-header">
+                    <th class="border" style="background-color: #ffe4c4;">TESTS SUR LE CHRONOTACHYGRAPHE</th>
+                </tr>
+            </table>
+            <table class="detailnatureheader tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border" rowspan="2" colspan="2">CONTROLE</th>
+                    <th rowspan="2">VALEUR</th>
+                    <th rowspan="2">EMT</th>
+                    <th rowspan="2">ECART</th>
+                    <th colspan="2">CONFORMITE</th>
+                </tr>
+                <tr>
+                    <th>OUI</th>
+                    <th>NON</th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">Test Horloge</th>
+                    <th style="background-color: #eeeeee;">-</th>
+                    <th>±85 s/j</th>
+                    <th>#ecart_horloge# s/j</th>
+                    <th>
+                        #oui_horloge#
+                    </th>
+                    <th>
+                        #non_horloge#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" rowspan="2" style="width: 20%;">Correspondance Horloge-Disque </th>
+                    <th class="textleft">Heure tachygraphe</th>
+                    <th>#valeur_corr_hd_htachyg#</th>
+                    <th rowspan="2">± 6 min</th>
+                    <th rowspan="2">#ecart_corr_hd_htachyg_hdisq#
+                        min
+                    </th>
+                    <th rowspan="2">
+                        #ouiconforme_corr_hd_htachyg_hdisq#
+                    </th>
+                    <th rowspan="2">
+                        #nonconforme_corr_hd_htachyg_hdisq#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft">Heure disque</th>
+                    <th>#valeur_corr_hd_hdisq#</th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">Perpendicularité stylet vitesse</th>
+                    <th>Alidade</th>
+                    <th>± 2 min</th>
+                    <th style="background-color: #eeeeee;">-</th>
+                    <th>
+                        #ouiconforme_perpe_svitesse#
+                    </th>
+                    <th>
+                        #nonconforme_perpe_svitesse#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">Alignement stylets vitesse, activité et distance</th>
+                    <th>Alidade</th>
+                    <th>± 3 min 30s</th>
+                    <th style="background-color: #eeeeee;">-</th>
+                    <th>
+                        #ouiconforme_alignement_svitesse_actdistance#
+                    </th>
+                    <th>
+                        #nonconforme_alignement_svitesse_actdistance#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" rowspan="2">DISTANCE</th>
+                    <th class="textleft">Kilométrage avant le cycle :
+                        #km_avant#</th>
+                    <th rowspan="2">#valeur_distance#</th>
+                    <th rowspan="2">± 1 %</th>
+                    <th rowspan="2">
+                        #ecat_distance# %
+                    </th>
+                    <th rowspan="2">
+                        #oui_distance#
+                    </th>
+                    <th rowspan="2">
+                        #non_distance#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft">Kilométrage après le cycle :
+                        #km_apres#</th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">Contrôle de l'enregistrement de la distance : </th>
+                    <th rowspan="2">Alidade</th>
+                    <th rowspan="2" colspan="2" style="background-color: #eeeeee;">-</th>
+                    <th>
+                        #ouiconforme_controle_enreg_distance#
+                    </th>
+                    <th>
+                        #nonconforme_controle_enreg_distance#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">Contrôle de l'enregistrement de l'activité :</th>
+                    <th>
+                        #ouiconforme_controle_enreg_activite#
+                    </th>
+                    <th>
+                        #nonconforme_controle_enreg_activite#
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="8" style="background-color: #eeeeee;">Contrôle de l'indication de la vitesse </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">125 – 140 – 180 km/h pendant 3min (Conduite)</th>
+                    <th>#valeur_125#</th>
+                    <th>± 3km/h</th>
+                    <th>#ecart_125# Km/h</th>
+                    <th>
+                        #oui_125#
+                    </th>
+                    <th>
+                        #non_125#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">0 Km/h pendant 3min (repos)</th>
+                    <th>#valeur_0#</th>
+                    <th>± 3km/h</th>
+                    <th>#ecart_0# Km/h</th>
+                    <th>
+                        #oui_0#
+                    </th>
+                    <th>
+                        #non_0#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">40 km/h pendant 3min (conduite)</th>
+                    <th>#valeur_40#</th>
+                    <th>± 3km/h</th>
+                    <th>#ecart_40# Km/h</th>
+                    <th>
+                        #oui_40#
+                    </th>
+                    <th>
+                        #non_40#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">70 /80 /100 km/h pendant 3min (conduite)</th>
+                    <th>#valeur_70#</th>
+                    <th>± 3km/h</th>
+                    <th>#ecart_70# Km/h</th>
+                    <th>
+                        #oui_70#
+                    </th>
+                    <th>
+                        #non_70#
+                    </th>
+                </tr>
+                <tr>
+                    <th class="textleft" colspan="2">100 / 120 /160 km/h pendant 3min (conduite)</th>
+                    <th>#valeur_100#</th>
+                    <th>± 3km/h</th>
+                    <th>#ecart_100# Km/h</th>
+                    <th>
+                        #oui_100#
+                    </th>
+                    <th>
+                        #non_100#
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr class="bg-table-header">
+                    <th class="border" style="background-color: #eeeeee;">NB: Joindre le disque diagramme</th>
+                </tr>
+                <tr class="bg-table-header">
+                    <th class="border" style="background-color: #ffe4c4;">RESULTAT D'ESSAI CHRONOTACHYGRAPHE</th>
+                </tr>
+            </table>
+            <table class="tableinter" style="width: 100%;">
+                <tr>
+                    <th style="width: 50%;">
+                        <div class="flex align-items-center justify-content-center">
+                            <img class="iconcheck" src="#ouiresultat_essai#">
+                            <label class="mr-2" for="ny">CONFORME</label>
+                        </div>
+                    </th>
+                    <th style="width: 50%;">
+                        <div class="flex align-items-center justify-content-center">
+                            <img class="iconcheck" src="#nonresultat_essai#">
+                            <label class="mr-2" for="ny">NON CONFORME</label>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr class="bg-table-header">
+                    <th class="border" colspan="7" style="background-color: #ffe4c4;">Test 1000 m</th>
+                </tr>
+                <tr>
+                    <th class="border textleft" colspan="7">Vérification k du chronotachygraphe :
+                        #Tachygrapheconst_k#</th>
+                </tr>
+                <tr style="background-color: #eeeeee;">
+                    <th class="border" rowspan="2">Vitesse Banc</th>
+                    <th class="border" rowspan="2">Vitesse Chrono</th>
+                    <th class="border" colspan="2">EMT</th>
+                    <th class="border" rowspan="2">Erreur</th>
+                    <th class="border" colspan="2">Conformité</th>
+                </tr>
+                <tr style="background-color: #eeeeee;">
+                    <th class="border">VAI</th>
+                    <th class="border">VP</th>
+                    <th class="border">Oui</th>
+                    <th class="border">Non</th>
+                </tr>
+                <tr>
+                    <th class="border">#valeur_vitesse_banc#</th>
+                    <th class="border">#valeur_vitesse_chrono#</th>
+                    <th class="border">±4Km/h</th>
+                    <th class="border">±6Km/h</th>
+                    <th class="border">#ErreurVitesse#Km/h</th>
+                    <th class="border">
+                        #oui_vitesse#
+                    </th>
+                    <th class="border">
+                        #non_vitesse#
+                    </th>
+                </tr>
+                <tr style="background-color: #eeeeee;">
+                    <th class="border" rowspan="2">Distance Banc</th>
+                    <th class="border" rowspan="2">Distance Chrono</th>
+                    <th class="border" colspan="2">EMT</th>
+                    <th class="border" rowspan="2">Erreur en %</th>
+                    <th class="border" colspan="2">Conformité</th>
+                </tr>
+                <tr style="background-color: #eeeeee;">
+                    <th class="border">VAI</th>
+                    <th class="border">VP</th>
+                    <th class="border">Oui</th>
+                    <th class="border">Non</th>
+                </tr>
+                <tr>
+                    <th class="border">#valeur_distance_banc#</th>
+                    <th class="border">#valeur_distance_chrono#</th>
+                    <th class="border">±2%</th>
+                    <th class="border">±4%</th>
+                    <th class="border">#ErreurDistance#%</th>
+                    <th class="border">
+                        #oui_distance_1000#
+                    </th>
+                    <th class="border">
+                        #non_distance_1000#
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr>
+                    <th class="border textleft">
+                        <div class="flex align-items-center">
+                            <label>Plombage plaque de recouvrement :</label>
+                            <div class="border-ligne">
+                                #ouiPlombagePlaqueRecouvrement#
+                            </div>
+                        </div>
+                    </th>
+                    <th class="textcenter">
+                        <div class="flex align-items-center">
+                            <label>Photos : </label>
+                            <div class="border-ligne">
+                                #ouiPhotosTachygraphe#
+                            </div>
+                        </div>
+                    </th>
+                    <th class="textcenter">
+                        <div class="flex align-items-center">
+                            <label>Plaquette d'installation : </label>
+                            <div class="border-ligne">
+                                #ouiPlaquetteInstallation#
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="border textleft">
+                        <div class="flex align-items-center">
+                            <label>Disque d'essai : </label>
+                            <div class="border-ligne">
+                                #ouiDisqueEssai#
+                            </div>
+                        </div>
+                    </th>
+                    <th class="textcenter" colspan="2">
+                        <div class="flex align-items-center">
+                            <label>Plaquette de contrôle (VP) : </label>
+                            <div class="border-ligne">
+                                #ouiPlaquetteControleVP#
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr>
+                    <th class="textleft" colspan="7">
+                        <div class="flex">
+                            <span>Décision VAI/VP : </span>
+                        </div>
+                    </th>
+                    <th class="textleft">
+                        <div class="flex align-items-center justify-content-center">
+                            <img class="iconcheck" src="#ouiDecisionVaiSurVp#">
+                            <label class="mr-2" for="ny">CONFORME</label>
+                        </div>
+                    </th>
+                    <th class="textleft" style="width: 50%;">
+                        <div class="flex align-items-center justify-content-center">
+                            <img class="iconcheck" src="#nonDecisionVaiSurVp#">
+                            <label class="mr-2" for="ny">NON CONFORME</label>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr class="bg-table-header">
+                    <th class="border" style="background-color: #ffe4c4;">MOYENS UTILISES</th>
+                </tr>
+                <tr>
+                    <th class="textleft" style="width: 100%;">
+                        <div class="justify-content-bt">
+                            #materielUtilises#
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <table class="detail tableinter" style="width: 100%;">
+                <tr class="bg-table-header">
+                    <th class="border" colspan="3" style="background-color: #ffe4c4;">Validation</th>
+                </tr>
+                <tr>
+                    <th class="border" style="height: 150px;width:33.33%;vertical-align: top;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span> Visa Installateur :</span>
+                            <img style="height: 150px;" src="#signature_installateur#">
+                        </div>
+                    </th>
+                    <th class="border" style="height: 100px;width:33.33%;vertical-align: top;">
+                        <div style="display: flex; flex-direction: column;">
+                            Visa Vérificateur :
+                            <img style="height: 150px;" src="#signature_verificateur#">
+                        </div>
+                    </th>
+                    <th class="border" style="height: 100px;width:33.33%;vertical-align: top;">
+                        Visa RTC :
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

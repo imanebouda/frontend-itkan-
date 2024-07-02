@@ -1,0 +1,152 @@
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card ">
+            <div class="grid grid-nogutter surface-section text-800">
+                <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+                    <section>
+                        <span class="block text-6xl font-bold line-height-2">Améliorez la gestion de la qualité au sein de votre entreprise grâce à un logiciel de qualité</span>
+                        <div class="text-6xl text-primary font-bold mb-4 line-height-2">Optimisez la Gestion QHSE avec Notre Logiciel</div>
+                        <p class="mt-0 mb-4 text-700 line-height-3">Visualisez et analysez les performances de vos
+                            processus tout au long de l'année. Ajoutez, modifiez et suivez les résultats de vos
+                            indicateurs en temps réel.</p>
+                    </section>
+                </div>
+                <div class="col-12 md:col-6 overflow-hidden">
+                    <img width="1000px" src="assets/bo/images/product/Logiciel-qualite.webp" alt="Image"
+                        class="md:ml-auto block md:h-full"
+                        style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid">
+    <div class="col-12">
+        <p-card header="Filtre de recherche">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col">
+                    <label>Processus</label>
+                    <p-dropdown appendTo="body" [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty"
+                        [showClear]="true" [options]="liste_verificateurs" optionLabel="nom_complet_utilisateur"
+                        optionValue="id" [(ngModel)]="id_verificateur" [filter]="true" placeholder="..."
+                        emptyFilterMessage="Aucun vérificateur" emptyMessage="Aucun vérificateur" scrollHeight="130px">
+                        <ng-template let-element pTemplate="item">
+                            <div class="flex justify-content-between">
+                                <span class="font-12">{{element?.nom_complet_utilisateur}}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div class="field col" style="width:200px">
+                    <label>Interval de dates</label>
+                    <p-calendar dateFormat="dd/mm/yy" [defaultDate]="dateStart" [(ngModel)]="dateStart"
+                        selectionMode="range" view="month" [showIcon]="true" dateFormat="mm/yy"></p-calendar>
+                </div>
+            </div>
+
+        </p-card>
+    </div>
+</div>
+<!-- <app-loader *ngIf="is_loading"></app-loader> -->
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopup(dataOrds?.ordsInitial)">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Nouveaux écarts</span>
+                    <div class="text-900 font-medium text-xl"></div>
+                </div>
+                <!-- <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-clock pi-spin text-blue-500 text-xl"></i>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopup(dataOrds?.ordsEncours)">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3"> Ecarts en cours de traitement
+                    </span>
+                    <div class="text-900 font-medium text-xl">{{dataOrds?.ordsEncours?.length}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-clock pi-spin text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopup(dataOrds?.ordsCompleted)">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Eacrts incomplets </span>
+                    <div class="text-900 font-medium text-xl">{{dataOrds?.ordsCompleted?.length}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-check text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopup(dataOrds?.ordsFav)">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3"> Ecarts résolus   </span>
+                    <div class="text-900 font-medium text-xl">{{dataOrds?.ordsFav?.length}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-green-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-check-circle text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopup(dataOrds?.ordsdeF)">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Ecarts clôturés </span>
+                    <div class="text-900 font-medium text-xl">{{dataOrds?.ordsdeF?.length}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-red-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-times-circle text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4" (click)="showPopupReclamation()">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Réclamations                    </span>
+                    <div class="text-900 font-medium text-xl">{{dataOrds?.reclamations.length}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-red-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-info-circle text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid p-fluid">
+    <div class="col-12 lg:col-6">
+        <div class="card">
+            <h5>Taux de traitement</h5>
+            <p-chart type="line" [data]="lineData" [options]="lineOptions"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6">
+        <div class="card">
+            <h5>Total des constats </h5>
+            <p-chart type="bar" [data]="barData" [options]="barOptions"></p-chart>
+        </div>
+    </div>
+</div>

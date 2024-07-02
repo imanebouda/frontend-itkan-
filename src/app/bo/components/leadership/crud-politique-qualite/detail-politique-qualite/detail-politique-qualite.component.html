@@ -1,0 +1,141 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset  legend="Fiche Politique Qualité" [toggleable]="true">
+    <div *ngIf="detailPQDocuments" class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-3">
+                <b for="Titre">Titre: </b>
+                <label>{{detailPQDocuments?.Libelle}}</label>
+            </div>
+            <div class="field col-3">
+                <b for="Version">Version : </b>
+                <label>{{detailPQDocuments?.Version}}</label>
+            </div>
+            <div class="field col-3" >
+                <b for="Date ">Date d'application: </b>
+                <label>{{detailPQDocuments?.DateApplication  | date: 'dd/MM/yyyy'  }}</label>
+            </div>
+            <div class="field col-3" >
+                <b for="SMQ">SMQ: </b>
+                <label>{{detailPQDocuments?.SMQ.Libelle }}</label>
+            </div>
+            <div class="field col-12" >
+                <b for="Description">Description: </b>
+                <label>{{detailPQDocuments?.Description }} </label>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!detailPQDocuments" class="no-document-message">
+        Aucun document Politique Qualité trouvé.
+    </div>
+</p-fieldset>
+
+
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<br>
+<hr>
+<p-fieldset *ngIf="detailPQDocuments" legend="Document" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-6">   
+                <div class="flex center_media mt-2" style="column-gap: 10px;">
+                    <ng-container >
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Télecharger')" pRipple style="cursor: pointer;"
+                            tooltipPosition="left"   pTooltip="Visualiser le document PDF: {{detailPQDocuments?.Libelle}} ?"
+                            (click)="ViewPDFDocument(detailPQDocuments)">
+                            <img *ngIf="detailPQDocuments?.ExtensionFile === '.pdf'" src="./assets/layout/images/icons-pdf.png"   alt="image icons_pdf">
+                            <img *ngIf="detailPQDocuments?.ExtensionFile === '.docx'" src="./assets/layout/images/icons-word.png"  alt="image icons_word">
+                            <img *ngIf="detailPQDocuments?.ExtensionFile === '.xlsx'" src="./assets/layout/images/icons-excel.png"  alt="image icons_excel">
+                            <br>
+                            <label >{{detailPQDocuments?.Libelle}}</label> 
+                        </i>                  
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Modifier')"
+                            pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                            tooltipPosition="left"
+                            pTooltip="Modifier les informations du document PQ: {{detailPQDocuments?.Libelle}} ?"
+                            (click)="ShowFormulaire('modifier',detailPQDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Supprimer')" pButton pRipple
+                        class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                        pTooltip="Supprimer le document PQ : {{detailPQDocuments?.Libelle}} ?" (click)="DeleteAnPQDocuments(detailPQDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Télecharger') "
+                            pButton pRipple class="p-button-rounded p-button-help mr-2" icon="pi pi-download"
+                            tooltipPosition="left" pTooltip="Télécharger le document PQ: {{detailPQDocuments?.Libelle}}"
+                            (click)="downloadDocument(detailPQDocuments?.ID)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Statut')" pButton pRipple
+                         pButton pRipple class="p-button-rounded p-button-secondary" icon="pi pi-lock-open" tooltipPosition="right"
+                         pTooltip="Archiver le Document : {{detailPQDocuments?.Libelle}} ?" (click)="StatutAnPQDocuments(detailPQDocuments )">
+                        </i>
+                      </ng-container> 
+                      <ng-container>
+                        <i *ngIf="generalService.canActivate('Politique Qualité-Montrer')"
+                            pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-file-pdf"
+                            tooltipPosition="left"
+                            pTooltip="Visualiser le document PDF: {{detailPQDocuments?.Libelle}} ?"
+                            (click)="ViewPDFDocument(detailPQDocuments)">
+                        </i>
+                    </ng-container>
+                      <app-autre-component></app-autre-component>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+
+<p-fieldset *ngIf="!detailPQDocuments" legend="Document" [toggleable]="true">
+    <ng-container>
+        <i *ngIf="generalService.canActivate('Politique Qualité-Ajouter') "
+        pButton pRipple class="p-button-rounded p-button-success" icon="pi pi-plus-circle"
+        tooltipPosition="left" pTooltip="Ajouter un document PQ : {{detailPQDocuments?.Libelle}}"
+        (click)="ShowFormulaire('Ajouté')">
+        </i>
+    </ng-container>
+</p-fieldset>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '30vw'}">
+    <p-card>
+    <app-update-politique-qualite [data_selected_Dp]="detailPQDocuments" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-politique-qualite>
+    </p-card>
+</p-dialog> 
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de Document Politique Qualité"
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '70vw' }" >
+    <p-card>
+        <app-add-politique-qualite *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+        </app-add-politique-qualite>
+    </p-card>
+</p-dialog> 
+ <!----------------------------------------------------------------------- -->
+<!--                        Le Viewer de document                           -->
+<!-- ----------------------------------------------------------------------- -->
+
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false"  header="{{Header_info}}"
+    [(visible)]="if_show_pdf" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '80vw'}">
+    <p-card>
+        <app-pdf-viewer  *ngIf="if_show_pdf" [data_selected_Dp]="detailPQDocuments"  (FermerPopUp)="CloseDocument($event)">
+        </app-pdf-viewer>
+    </p-card>
+</p-dialog> 

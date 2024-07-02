@@ -1,0 +1,97 @@
+<!-- <app-loader *ngIf="is_loading"></app-loader> -->
+<p-fieldset legend="Rechercher des rôles" [toggleable]="true">
+    <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
+        <button pButton pRipple class="p-button-success" icon="pi pi-plus-circle" iconPos="left" type="button"
+            (click)="ShowFormulaire('Ajouté')" tooltipPosition="bottom" label="Ajouter un rôle"
+            pTooltip="Cliquez ici pour ajouter un nouvel utilisateur">
+        </button>
+    </div>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des roles ------------------------- -->
+<p-card>
+    <p-table responsiveLayout="scroll" [value]="ListeRoles" styleClass="p-datatable-responsive-demo"
+        (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+        [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+        [showCurrentPageReport]="true" dataKey="id"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="name">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Libellé du rôle<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">Description<p-sortIcon field="name"></p-sortIcon></th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </ng-template>
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-role>
+            <tr>
+                <td>
+                    <span class="badge badge-dark">
+                        {{role?.Name}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-dark">
+                        {{role?.Code}}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                            tooltipPosition="left"
+                            pTooltip="Modifier le informations de profile : {{role?.Name}} ?"
+                            (click)="ShowFormulaire('modifier',role)">
+                        </i>
+                        <i pButton pRipple class="p-button-rounded p-button-danger mr-2" icon="pi pi-trash"
+                            pTooltip="Supprimer profile : {{role?.Name}} ?"
+                            tooltipPosition="left" (click)="SupprimerRole(role)">
+                        </i>
+                    </div>
+                </td>
+                
+            </tr>
+        </ng-template>
+        <!-- ------------------ Le Footer en cas d'une table vide ------------------ -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="2">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image logo">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" [resizable]="false" header="{{Header_info}}" [(visible)]="if_show_modifier"
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'min-width': '70vw'}">
+    <p-card>
+        <app-formulaire-update-roles [data_selected_role]="data_selected_role" *ngIf="if_show_modifier"
+            (FermerPopUp)="CloseUpdate($event)">
+        </app-formulaire-update-roles>
+    </p-card>
+</p-dialog>
+<!-- ----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" [resizable]="false" header="Ajout rôle" [(visible)]="if_show_ajouter"
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'min-width': '70vw'}">
+    <p-card>
+        <app-formulaire-ajout-roles *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+        </app-formulaire-ajout-roles>
+    </p-card>
+</p-dialog>

@@ -1,0 +1,118 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="text-center flex justify-content-center">
+    <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+</div>
+<br>
+<form [formGroup]="clientForm" (ngSubmit)="SubmitForm()">
+    <div class="flex w-100 mb-2">
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Code  : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcessusFormErrors?.code.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Code" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Version   : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcessusFormErrors?.version.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Version" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Titre  : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcessusFormErrors?.libelle.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Libelle" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+          <label class="mb-2">Date d'application  : </label>
+          <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcessusFormErrors?.CreationDate.errors">
+              ( Invalide )
+          </span>
+          <p-calendar formControlName="CreationDate" dateFormat="dd/mm/yy"></p-calendar>
+        </div>   
+    </div>
+    <div class="flex flex-column ">
+        <div class="flex w-100 mb-2">
+          <div class="flex flex-column mb-2 " style="width: 50%;">
+              <label class="mb-2">SMQ</label>
+              <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                [options]="smqList" formControlName="SMQ_ID" [filter]="true" placeholder="Sélectionnez une SMQ"
+                emptyFilterMessage="Aucune SMQ" emptyMessage="Aucune SMQ" scrollHeight="130px">
+                <ng-template let-element pTemplate="item">
+                  <div class="flex justify-content-between">
+                    <span class="font-12">{{ element?.label }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+            
+            <div class="flex flex-column mb-2" style="width: 50%;">
+              <label class="mb-2">Catégories</label>
+              <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                [options]="categorieList" formControlName="Categorie_ID" [filter]="true" placeholder="Sélectionnez une catégorie"
+                emptyFilterMessage="Aucune catégorie" emptyMessage="Aucune catégorie" scrollHeight="130px">
+                <ng-template let-element pTemplate="item">
+                  <div class="flex justify-content-between">
+                    <span class="font-12">{{ element?.label }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+        </div>
+        <div class="flex w-100 mb-2">
+          <div class="flex flex-column mb-2 " style="width: 50%;">
+              <label class="mb-2">Pilote</label>
+              <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                [options]="userPilote" formControlName="Pilote" [filter]="true" placeholder="Sélectionnez une Pilote"
+                emptyFilterMessage="Aucune Pilote" emptyMessage="Aucune Pilote" scrollHeight="130px">
+                <ng-template let-element pTemplate="item">
+                  <div class="flex justify-content-between">
+                    <span class="font-12">{{ element?.label }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+            
+            <div class="flex flex-column mb-2" style="width: 50%;">
+              <label class="mb-2">Co-Pilote</label>
+              <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                [options]="userCoPilote" formControlName="CoPilote" [filter]="true" placeholder="Sélectionnez une CoPilote"
+                emptyFilterMessage="Aucune CoPilote" emptyMessage="Aucune CoPilote" scrollHeight="130px">
+                <ng-template let-element pTemplate="item">
+                  <div class="flex justify-content-between">
+                    <span class="font-12">{{ element?.label }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+        </div>
+          <div class="flex flex-column mb-2 w-100">
+            <label class="mb-2">Description  : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcessusFormErrors?.Description.errors">
+                ( Invalide )
+            </span>
+            <textarea pInputText type="text" formControlName="Description" placeholder="..."></textarea>
+          </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer"
+                (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Ajouter" (click)="SubmitForm()"
+                    [disabled]="Disabled || is_loading"></button>
+            </div>
+        </div>
+    </div>
+</form>
+

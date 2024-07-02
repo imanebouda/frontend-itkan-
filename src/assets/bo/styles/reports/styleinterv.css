@@ -1,0 +1,189 @@
+.header_fiche {
+    width: 100%;
+
+}
+
+th {
+    font-size: 11px;
+}
+
+td {
+    font-size: 11px;
+}
+
+.flexrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.header_fiche tr th {
+    width: 33.33%;
+    text-align: left;
+}
+
+.header_fiche tr th span {
+    border-bottom: 1px solid;
+}
+
+.textcenter {
+    text-align: center !important;
+}
+
+.textright {
+    text-align: right !important;
+}
+
+.header_numeros th {
+    border: 1px solid black;
+    padding: 2.5px;
+}
+
+.border {
+    border: 1px solid black;
+    padding: 2.5px;
+}
+
+.width-60 {
+    width: 43.5%;
+}
+
+.header_table {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.imglogo {
+    height: 89px !important;
+}
+
+.clientident {
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-top: none;
+}
+
+.tableinter {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.tableinter th {
+    padding: 2px;
+}
+
+.clientident th,
+.detailveh th,
+.detailnatureheader th {
+    border: 1px solid black;
+}
+
+
+.clientident tr:first-child th,
+.detailveh tr:first-child th,
+.detailnatureheader tr:first-child th {
+    border-top: none;
+    border-bottom: none;
+}
+
+
+
+.textleft {
+    text-align: left !important;
+}
+
+.width-25 {
+    width: 25%;
+}
+
+input[type="checkbox"]:disabled:checked {
+    opacity: 1;
+    cursor: not-allowed;
+    background-color: white;
+
+}
+
+input[type="checkbox"]:disabled {
+    width: 17px;
+    height: 17px;
+}
+
+.bgeee {
+    background-color: #ffe4c4;
+}
+
+.iconcheck {
+    width: 20px;
+    margin-left: 5px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+    align-items: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.justify-content-center {
+    justify-content: center
+}
+
+.pi {
+    font-family: 'primeicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.pi-check:before {
+    content: "\e909";
+}
+
+.pi:before {
+    --webkit-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.print-footer {
+    border-top: 5px solid;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.border-ligne {
+    border: 1px solid;
+    border-radius: 5px;
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    padding: 1px;
+}
+
+.border-ligne .iconcheck {
+    width: 15px !important;
+    margin-left: 0 !important;
+}

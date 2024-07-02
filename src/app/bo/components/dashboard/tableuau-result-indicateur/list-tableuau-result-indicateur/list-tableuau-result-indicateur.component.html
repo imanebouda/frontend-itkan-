@@ -1,0 +1,184 @@
+
+<!--------------------------------------------->
+<div class="grid">
+    <div class="col-12">
+        <div class="card ">
+            <span class="block text-500 font-medium mb-3">Tableau des résultats des indicateurs par processus et période :
+            </span>
+            <p-table [value]="ShowDataIndicateurs" [resizableColumns]="true" columnResizeMode="expand"
+                styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header" let-ShowDataIndicateur>
+                    <tr>
+                        <th class="bg-primary">Année</th>
+                        <th> {{ ShowDataIndicateurs[0]?.Annee }}</th>
+                    </tr>
+                    <tr>
+                        <th pSortableColumn="processus" class="bg-primary">Processus</th>
+                        <th pSortableColumn="indicateur" class="bg-primary">Indicateurs</th>
+                        <th pSortableColumn="cible" class="bg-primary">Cible</th>
+                        <th pSortableColumn="frequence" class="bg-primary">Fréquence</th>
+                        <th *ngFor="let mois of ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']"
+                            pSortableColumn="{{mois}}" class="bg-primary">{{mois}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ShowDataIndicateur>
+                    <tr>
+                        <td class="text-center">{{ ShowDataIndicateur.Processus }}</td>
+                        <td class="text-center">{{ ShowDataIndicateur.Indicateur }}</td>
+                        <td class="text-center">{{ ShowDataIndicateur.Cible }} %</td>
+                        <td class="text-center">{{ ShowDataIndicateur.Frequence }}</td>
+                        <ng-container *ngIf="ShowDataIndicateur.Frequence === 'Mensuelle'; else autrePeriode">
+                            <ng-container
+                                *ngFor="let mois of  ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']">
+                                <td class="text-center"
+                                    [ngClass]="getColorClass(ShowDataIndicateur.Resultats, mois,ShowDataIndicateur.Cible)">
+                                    <ng-containe *ngIf="hasResultForPeriode(ShowDataIndicateur.Resultats, mois); else autrePeriode">
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                                     
+                                            tooltipPosition="left"
+                                            style="cursor: pointer" 
+                                            pTooltip="Modifier ou Supprimer : {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat}}"
+                                            (click)="ModifyResultatIndicateur(ShowDataIndicateur , mois )"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} 
+                                        </i>
+                                     <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} </span>
+                                    </ng-containe>
+                                    <ng-template #autrePeriode>
+                                         <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Ajouter "
+                                        (dblclick)="ShowFormulaire('Ajouté',ShowDataIndicateur , mois)">-
+                                       </i> 
+                                        <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> - </span>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="ShowDataIndicateur.Frequence === 'Quadrimestrielle'; else autrePeriode">
+                            <ng-container *ngFor="let mois of ['Q1','Q2','Q3']">
+                                <td colspan="4" class="text-center"
+                                    [ngClass]="getColorClass(ShowDataIndicateur.Resultats, mois,ShowDataIndicateur.Cible)">
+                                    <ng-container
+                                        *ngIf="hasResultForPeriode(ShowDataIndicateur.Resultats, mois); else autrePeriode">
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"  
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Modifier ou Supprimer : {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat}}"
+                                        (click)="ModifyResultatIndicateur(ShowDataIndicateur , mois )"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} 
+                                    </i>
+                                 <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} </span>
+                                    </ng-container>
+                                    <ng-template #autrePeriode>
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                               
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Ajouter "
+                                        (dblclick)="ShowFormulaire('Ajouté',ShowDataIndicateur , mois)">-
+                                       </i> 
+                                        <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> - </span>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="ShowDataIndicateur.Frequence === 'Trimestrielle'; else autrePeriode">
+                            <ng-container *ngFor="let mois of ['T1','T2','T3','T4']">
+                                <td colspan="3" class="text-center"
+                                    [ngClass]="getColorClass(ShowDataIndicateur.Resultats, mois,ShowDataIndicateur.Cible)">
+                                    <ng-container
+                                        *ngIf="hasResultForPeriode(ShowDataIndicateur.Resultats, mois); else autrePeriode">
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"
+                                            tooltipPosition="left"
+                                            style="cursor: pointer" 
+                                            pTooltip="Modifier ou Supprimer : {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat}}"
+                                            (click)="ModifyResultatIndicateur(ShowDataIndicateur , mois )"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} 
+                                        </i>
+                                     <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} </span>
+                                    </ng-container>
+                                    <ng-template #autrePeriode>
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                                  
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Ajouter "
+                                        (dblclick)="ShowFormulaire('Ajouté',ShowDataIndicateur , mois)">-
+                                       </i> 
+                                        <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> - </span>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="ShowDataIndicateur.Frequence === 'Semestrielle'; else autrePeriode">
+                            <ng-container *ngFor="let mois of ['S1', 'S2']">
+                                <td colspan="6" class="text-center"
+                                    [ngClass]="getColorClass(ShowDataIndicateur.Resultats, mois,ShowDataIndicateur.Cible)">
+                                    <ng-container
+                                        *ngIf="hasResultForPeriode(ShowDataIndicateur.Resultats, mois); else autrePeriode">
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                                  
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Modifier ou Supprimer : {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat}}"
+                                        (click)="ModifyResultatIndicateur(ShowDataIndicateur , mois )"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} 
+                                    </i>
+                                 <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} </span>
+                                    </ng-container>
+                                    <ng-template #autrePeriode>
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                                  
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Ajouter "
+                                        (dblclick)="ShowFormulaire('Ajouté',ShowDataIndicateur , mois)">-
+                                       </i> 
+                                        <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> - </span>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="ShowDataIndicateur.Frequence === 'Annuelle'; else autrePeriode">
+                            <ng-container *ngFor="let mois of ['A1']">
+                                <td colspan="12" class="text-center"
+                                    [ngClass]="getColorClass(ShowDataIndicateur.Resultats, mois,ShowDataIndicateur.Cible)">
+                                    <ng-container
+                                        *ngIf="hasResultForPeriode(ShowDataIndicateur.Resultats, mois); else autrePeriode">
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"                                  
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Modifier ou Supprimer : {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat}}"
+                                        (click)="ModifyResultatIndicateur(ShowDataIndicateur , mois )"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} 
+                                    </i>
+                                 <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> {{getResultForPeriode(ShowDataIndicateur.Resultats, mois).Resultat }} </span>
+                                    </ng-container>
+                                    <ng-template #autrePeriode>
+                                        <i *ngIf="generalService.canActivatePilote(ShowDataIndicateur)"
+                                        tooltipPosition="left"
+                                        style="cursor: pointer" 
+                                        pTooltip="Ajouter "
+                                        (dblclick)="ShowFormulaire('Ajouté',ShowDataIndicateur , mois)">-
+                                       </i> 
+                                        <span *ngIf="generalService.canActivatePilote(ShowDataIndicateur) == false"> - </span>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '20vw'}">
+    <app-add-tableuau-result-indicateur [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_ajouter"
+        (FermerPopUp)="CloseAjouter($event)">
+    </app-add-tableuau-result-indicateur>
+</p-dialog>
+
+
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '20vw'}">
+    <app-update-tableuau-result-indicateur [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-tableuau-result-indicateur>
+</p-dialog> 

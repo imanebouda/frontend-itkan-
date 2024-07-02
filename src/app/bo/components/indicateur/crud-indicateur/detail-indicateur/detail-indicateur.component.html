@@ -1,0 +1,36 @@
+<p-menubar class="mb-1" [model]="menu_items" id="menu_bar"></p-menubar>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Détail Indicateur " [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-6">
+                <b for="Code">Titre : </b>
+                <label>{{detailIndicateur?.Libelle}}</label>
+            </div>
+            <div class="field col-6">
+                <b for="Processus">Processus : </b>
+                <label>{{detailIndicateur?.Processus.Libelle}}</label>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-2">
+                <b for="Version">Fréquence : </b>
+                <label>{{detailIndicateur?.Frequence}}</label>
+            </div>
+            <div class="field col-2">
+                <b for="Titre">Cible: </b>
+                <label>{{detailIndicateur?.Cible}}</label>
+            </div>
+            <div class="field col-2">
+                <b for="Titre">Tolérance: </b>
+                <label>{{detailIndicateur?.Tolerance}}</label>
+            </div>
+            <div class="field col-6" >
+                <b for="Description">Formule: </b>
+                <label>{{detailIndicateur?.Formule }} </label>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+<br>
+<app-list-rsultat-indicateur></app-list-rsultat-indicateur>

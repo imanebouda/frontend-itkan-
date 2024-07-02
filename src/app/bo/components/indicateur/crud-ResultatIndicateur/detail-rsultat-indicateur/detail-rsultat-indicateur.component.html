@@ -1,0 +1,22 @@
+
+<div class="summary">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col">
+            <b for="Période">Période : </b>
+            <label>{{data_selected_Resultat_indicateur?.Periode}}</label> 
+        </div>
+        <div class="field col">
+            <b for="Année">Année : </b>
+            <label>{{data_selected_Resultat_indicateur?.Annee}}</label>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col">
+            <b for="Résultat">Résultat : </b>
+        <label>{{data_selected_Resultat_indicateur?.Resultat}}</label>
+    </div>
+    <div class="field col">
+        <b for="Date">La date de création  : </b>
+        <label>{{data_selected_Resultat_indicateur?.CreationDate | date:'dd/MM/yyyy'}}</label>
+    </div>
+</div>

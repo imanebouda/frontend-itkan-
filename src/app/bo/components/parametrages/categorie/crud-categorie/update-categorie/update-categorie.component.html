@@ -1,0 +1,34 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<form [formGroup]="Formmulaire_update_parametrage" (ngSubmit)="SubmitForm()">
+    <div class="text-center flex justify-content-center mb-4">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <p-fieldset legend="Informations générales">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <label>Titre : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.label.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="Libelle"  placeholder="..."
+                    >
+            </div>
+        </div>
+    </p-fieldset>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer" (click)="ClosePopUp(false)">
+            </button>
+        </div>
+        <div>
+            <button pButton pRipple type="submit" class="p-button-success" label="Valider"
+                [disabled]="Disabled || is_loading">
+            </button>
+        </div>
+    </div>
+</form>

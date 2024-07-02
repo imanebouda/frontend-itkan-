@@ -1,0 +1,236 @@
+<div class="container">
+    <table style="border: none;" class="w-100 header">
+        <tr>
+            <td class="text-left" style="vertical-align: middle;">
+                <div class="flex flex-column">
+                    <p class="colored">#codeins#</p>
+                    <p class="colored">Processus technique</p>
+                </div>
+            </td>
+            <td class="text-center" style="vertical-align: middle;">
+                <h1 style="color: #7fa2ce;font-weight: 900;"> Fiche d'installation</h1>
+            </td>
+            <td class="text-right" style="vertical-align: middle;">
+                <img src="#logo#" onerror="this.imageUrl='assets/layout/images/user-cicrle.svg'" class="logo">
+            </td>
+        </tr>
+    </table>
+    <div class="d-flex justify-space-between" style="margin: 30px 0px 30px 0px;">
+        <div><span><strong>N°</strong> : #numero#</span></div>
+        <div><span><strong>Date </strong> : #date#</span></div>
+        <div><span><strong>Température</strong> : #temperature_tachygraphe#</span></div>
+    </div>
+    <div class="flex w-100">
+        <table style="border: solid 1px #333" class="w-100 table table-bordered mb-3">
+            <tbody>
+                <tr>
+                    <th class="th bg-grey">Correspondance des papiers</th>
+                    <td class="text-center">Oui</td>
+                    <td class="text-center" style="width: 5%;">#ouiCorrespondance_papiers#</td>
+                    <td class="text-center">Non</td>
+                    <td class="text-center" style="width: 5%;">#nonCorrespondance_papiers#</td>
+                    <td class="text-center"><span class="value">#correspondance_papiers_observations#</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex w-100 mb-3">
+        <div class="border-dotted w-50" style="margin-right: 10px;">
+            <div class="tab1">
+                <h4> Identification véhicule : </h4>
+                <p class="text">Propriétaire : <span class="value">#Clientname#</span></p>
+                <p class="text">Marque : <span class="value">#Vehiculemarque#</span></p>
+                <p class="text">Type : <span class="value">#Vehiculetype#</span></p>
+                <p class="text">N° de châssis : <span class="value">#Vehiculenumero_chassi#</span></p>
+                <p class="text">Immatriculation : <span class="value">#Vehiculeimmatricule#</span></p>
+                <p class="text">Kilométrage : <span class="value">#kilometrage#</span></p>
+            </div>
+        </div>
+        <div class="border-dotted w-50">
+            <div class="tab1">
+                <h4>Identification chronotachygraphe :</h4>
+                <p class="text">Marque : <span class="value">#TachygrapheMarque#</span></p>
+                <p class="text">Model / Type: <span class="value">#TachygrapheTypeMarque#</span></p>
+                <p class="text">N° d'homologation : <span class="value">#TachygrapheNumHomologation#</span></p>
+                <p class="text">N° de série : <span class="value">#Tachygraphenum_serie#</span></p>
+                <p class="text">Année de fabrication: <span class="value">#Tachygraphedate_fabrication#</span></p>
+                <p class="text">V.max : <span class="value">#Tachygraphevitesse_max# Km/h</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="flex mb-3">
+        <div class="border-dotted w-100" style="padding-bottom: 100px;">
+            <h4>Prérequis et diagnostique sur véhicule :</h4>
+            <div class="tab2">
+                <table style="border: dotted 1px #a3a3a3" class="w-100 table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th class="th bg-grey text-left">Véhicule à vide</th>
+                            <td class="text-center">Oui</td>
+                            <td class="text-center" style="width: 5%;">#ouiVehicule_vide#</td>
+                            <td class="text-center">Non</td>
+                            <td class="text-center" style="width: 5%;">#nonVehicule_vide#</td>
+                        </tr>
+                        <tr>
+                            <th class="th bg-grey text-left">Véhicule en bon état de marche</th>
+                            <td class="text-center">Oui</td>
+                            <td class="text-center" style="width: 5%;">#ouiVehicule_marche#</td>
+                            <td class="text-center">Non</td>
+                            <td class="text-center" style="width: 5%;">#nonVehicule_marche#</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table style="border: solid 1px #000" class="w-100 table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="th center-text" rowspan="2"> <span>ELEMENT</span></th>
+                        <th class="th" colspan="2"><span>ETAT</span></th>
+                        <th class="th center-text" colspan="2" rowspan="2"><span>Observation</span></th>
+                    </tr>
+                    <tr>
+                        <th class="th bg-grey"><span>OK</span></th>
+                        <th class="th bg-grey"><span>NOK</span></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TACHYGRAPHE</td>
+                        <td class="center-text">#ouitachygraphe#</td>
+                        <td class="center-text">#nontachygraphe#</td>
+                        <td rowspan="8"><span>#observation_receb#</span></td>
+                    </tr>
+                    <tr>
+                        <td>GENERATEUR CAPTEUR</td>
+                        <td class="center-text">#ouiGenerateur_capteur#</td>
+                        <td class="center-text">#nonGenerateur_capteur#</td>
+                    </tr>
+                    <tr>
+                        <td>PRESENCE DES SCELLEMENTS</td>
+                        <td class="center-text">#ouiPresence_scellements#</td>
+                        <td class="center-text">#nonPresence_scellements#</td>
+                    </tr>
+                    <tr>
+                        <td>FAISCEAU ALIMENTATION / ADR </td>
+                        <td class="center-text">#ouiFaisceau_alimentation_ADR#</td>
+                        <td class="center-text">#nonFaisceau_alimentation_ADR#</td>
+                    </tr>
+                    <tr>
+                        <td>FAISCEAU DE VITESSE</td>
+                        <td class="center-text">#ouiFaisceau_vitesse#</td>
+                        <td class="center-text">#nonFaisceau_vitesse#</td>
+                    </tr>
+                    <tr>
+                        <td>ETAT TABLEAU DE BORD</td>
+                        <td class="center-text">#ouiEtat_tableau_bord#</td>
+                        <td class="center-text">#nonEtat_tableau_bord#</td>
+                    </tr>
+                    <tr>
+                        <td>ETAT BOITE DE VITESSE</td>
+                        <td class="center-text">#ouiEtat_boite_vitesse#</td>
+                        <td class="center-text">#nonEtat_boite_vitesse#</td>
+                    </tr>
+                    <tr>
+                        <td>AUTRE:……………………………………………</td>
+                        <td class="center-text">…………………………</td>
+                        <td class="center-text">…………………………</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="flex mb-3">
+        <div class="border-dotted w-100">
+            <h4>Prérequis et diagnostique sur véhicule :</h4>
+            <table style="border: solid 1px #000" class="w-100 table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="th center-text" colspan="8">Pneu identique en même essieu (Roues motrices) :</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="th bg-grey"> RG extérieure </th>
+                        <th colspan="2" class="th bg-grey"> RG intérieure </th>
+                        <th colspan="2" class="th bg-grey"> RD extérieure </th>
+                        <th colspan="2" class="th bg-grey"> RD intérieure </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">Marque : <span class="value">#marque_pg_ext#</span></td>
+                        <td colspan="2">Marque : <span class="value">#marque_pg_int#</span></td>
+                        <td colspan="2">Marque : <span class="value">#marque_pd_ext#</span></td>
+                        <td colspan="2">Marque : <span class="value">#marque_pd_int#</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Dimension : <span class="value">#dimensionPneus#</span></td>
+                        <td colspan="2">Dimension : <span class="value">#dimensionPneus#</span></td>
+                        <td colspan="2">Dimension : <span class="value">#dimensionPneus#</span></td>
+                        <td colspan="2">Dimension : <span class="value">#dimensionPneus#</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Pression (bar) : <span class="value">#pressionPneus#</span></td>
+                        <td colspan="2">Pression (bar) : <span class="value">#pressionPneus#</span></td>
+                        <td colspan="2">Pression (bar) : <span class="value">#pressionPneus#</span></td>
+                        <td colspan="2">Pression (bar) : <span class="value">#pressionPneus#</span></td>
+                    </tr>
+                    <tr>
+                        <th class="th bg-grey" colspan="8">Usure des pneus</th>
+                    </tr>
+                    <tr>
+                        <td>1: #profondeur_1_pg_ext#</td>
+                        <td>3: #profondeur_2_pg_ext#</td>
+                        <td>1: #profondeur_3_pg_ext#</td>
+                        <td>3: #profondeur_4_pg_ext#</td>
+                        <td>1: #profondeur_1_pg_int#</td>
+                        <td>3: #profondeur_2_pg_int#</td>
+                        <td>1: #profondeur_3_pg_int#</td>
+                        <td>3: #profondeur_4_pg_int#</td>
+                    </tr>
+                    <tr>
+                        <td>1: #profondeur_1_pd_ext#</td>
+                        <td>3: #profondeur_2_pd_ext#</td>
+                        <td>1: #profondeur_3_pd_ext#</td>
+                        <td>3: #profondeur_4_pd_ext#</td>
+                        <td>1: #profondeur_1_pd_int#</td>
+                        <td>3: #profondeur_2_pd_int#</td>
+                        <td>1: #profondeur_3_pd_int#</td>
+                        <td>3: #profondeur_4_pd_int#</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-around mt-50">
+                <div><span class="flex"><strong>Pneu conforme</strong><img class="iconcheck"
+                            src="#ouiconformitePneus#"></span></div>
+                <div><span class="flex"><strong>Pneu non-conforme</strong><img class="iconcheck"
+                            src="#nonconformitePneus#"></span></div>
+            </div>
+            <h4>Besoin supplémentaire :</h4>
+            <div class="mt-10">
+                <p class="text flex"><strong> Echange standard</strong><img class="iconcheck"
+                        src="#ouiEchange_standard#">
+                </p>
+                <p class="text">
+                    <strong>Prériphérique
+                        :</strong>……………………………………………………………………………………………………………………………………………………………………………………………
+                    ………………………………………………………………………………………………………………………………………………………………………………………………………
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt-50">
+        <div class="flex flex-column">
+            <span class="p">Visa installateur</span>
+            <div class="flex align-items-center justify-content-center">
+                <img class="canva_signature" src="#signature_installateur#">
+            </div>
+        </div>
+        <div class="flex flex-column">
+            <span class="p">Visa RTC</span>
+            <div class="flex align-items-center justify-content-center">
+                <img class="canva_signature" src="#signature_rtc#">
+            </div>
+        </div>
+    </div>
+</div>

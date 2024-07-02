@@ -1,0 +1,143 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<form [formGroup]="FormOrganisme" (ngSubmit)="SubmitForm()">
+  <div class="surface-card p-5 shadow-2 border-round flex-auto">
+    <div class="text-900 font-semibold text-lg mt-3">Organisme</div>
+    <p-divider class="p-element">
+      <div role="separator" class="p-divider  p-divider-horizontal p-divider-solid p-divider-left">
+        <div class="p-divider-content"></div>
+      </div>
+    </p-divider>
+    <div class="text-center flex justify-content-center mb-4">
+      <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex gap-5 flex-column-reverse md:flex-row">
+      <div class="flex-auto p-fluid grid formgrid">
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="code" class="block font-medium text-900 mb-2">Code
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.code.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input pInputText id="code" formControlName="code" type="text">
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="brand" class="block font-medium text-900 mb-2">Marque <span class="label_danger ml-1"
+              *ngIf="IsFiled && FormErrors?.brand.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input pInputText id="brand" formControlName="brand" type="text">
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <!-- Error mapping types. Mapping types: JObject -> Int32 Newtonsoft.Json.Linq.JObject -> System.Int32 Destination Member: -->
+          <label for="brand" class="block font-medium text-900 mb-2">Type Organisme : <span class="label_danger ml-1"
+            *ngIf="IsFiled && FormErrors?.id_type_organisme.errors">
+            ( Obligatoire * )
+            </span>
+          </label>
+          <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty"
+              [showClear]="true" [options]="listTypeOrg" [filter]="true" placeholder="..."
+              formControlName="id_type_organisme" optionLabel="label" optionValue="id"
+              emptyFilterMessage="Aucun type" emptyMessage="Aucun type" scrollHeight="130px">
+              <ng-template let-element pTemplate="item">
+                  <div class="flex justify-content-between">
+                      <span class="font-12">{{element?.label}}</span>
+                  </div>
+              </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="approval" class="block font-medium text-900 mb-2">N° Agrément
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.approval.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input pInputText id="approval" formControlName="approval" type="text">
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="social_reason" class="block font-medium text-900 mb-2">Raison sociale
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.social_reason.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input id="social_reason" formControlName="social_reason" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="address" class="block font-medium text-900 mb-2">Adresse
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.address.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <textarea id="address" type="text" formControlName="address" pInputTextarea rows="3"
+            class="p-inputtextarea-resizable"></textarea>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="city" class="block font-medium text-900 mb-2">Ville
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.city.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input id="city" formControlName="city" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="zip_code" class="block font-medium text-900 mb-2">Code postale
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.zip_code.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <input id="zip_code" formControlName="zip_code" type="text" pInputText>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="gsm" class="block font-medium text-900 mb-2">GSM</label>
+          <p-inputMask mask="09 99 99 99 99" formControlName="gsm" id="gsm" placeholder="06 12 34 56 87"></p-inputMask>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="phone" class="block font-medium text-900 mb-2">Téléphone
+            <span class="label_danger ml-1" *ngIf="IsFiled && FormErrors?.phone.errors">
+              ( Obligatoire * )
+            </span>
+          </label>
+          <p-inputMask mask="09 99 99 99 99" id="phone" formControlName="phone"
+            placeholder="06 12 34 56 87"></p-inputMask>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="website" class="block font-medium text-900 mb-2">Email</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">@</span><input id="website" formControlName="email" type="email"
+              pInputText>
+          </div>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="website" class="block font-medium text-900 mb-2">Date d'ouverture</label>
+          <div class="p-inputgroup">
+            <input id="open_date" formControlName="open_date" type="date" pInputText>
+          </div>
+        </div>
+        <div class="field mb-4 col-12 text-center md:text-right">
+          <button pButton pRipple label="Modifier" class="w-auto p-button-success" type="submit">
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-column align-items-center flex-or">
+        <span class="font-medium text-900 mb-2">Image Organisme</span>
+        <img [src]="imageUrl" onerror="this.imageUrl='assets/layout/images/user-cicrle.svg'" class="cl-img-organisme h-10rem w-10rem">
+
+        <p-fileUpload [showUploadButton]="false" name="image" *ngIf="FormOrganisme.value.id" class="cl-fileUpload-organisme"
+          styleClass="p-button-rounded " mode="basic" chooseIcon="pi pi-pencil" maxFileSize="1000000" accept="image/*"
+          (onSelect)="handleFileInput($event.currentFiles[0])" (onClear)="onRemoveImage($event)">
+        </p-fileUpload>
+
+        <!-- <button pbutton type="button" icon="pi pi-pencil" 
+          class="p-element p-button-rounded -mt-4 p-button p-button-icon-only">
+          <span class="p-button-icon pi pi-pencil" aria-hidden="true"></span>
+        </button> -->
+      </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+      <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+  </div>
+</form>

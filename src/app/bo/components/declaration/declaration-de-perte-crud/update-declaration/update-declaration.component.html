@@ -1,0 +1,85 @@
+<!-- <app-loader *ngIf="is_loading"></app-loader> -->
+
+<form [formGroup]="UpdateDPPForm" (ngSubmit)="SubmitForm()">
+    <div class="text-center flex justify-content-center mb-4">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            [severity]="Error === 0 ? 'success' : 'error'" [text]="ApiMessage"></p-message>
+    </div>
+
+    <div class="flex w-100 mb-2">
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Immatricule * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.immatriculeSous.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="immatriculeSous" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Nom de client * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.nomClient.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="nomClient" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Cin * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.titulaireCIN.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="titulaireCIN" placeholder="...">
+        </div>
+    </div>
+    <div class="flex flex-column">
+        <h2 class="mb-2">Détenteur du chrono tachygraphe :</h2>
+        <div class="flex w-100 mb-2">
+            <div class="flex flex-column mb-2 w-33">
+                <label class="mb-2">Marque * : </label>
+                <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.marque.errors">
+                    ( Invalide )
+                </span>
+                <p-autoComplete formControlName="marque" [dropdown]="true" appendTo="body"
+                    (completeMethod)="searchMarque($event)" [suggestions]="listMarque"></p-autoComplete>
+            </div>
+            <div class="flex flex-column mb-2 w-33">
+                <label class="mb-2">Type * : </label>
+                <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.type.errors">
+                    ( Invalide )
+                </span>
+                <p-autoComplete formControlName="type" appendTo="body" [dropdown]="true"
+                    (completeMethod)="searchTypeMarque($event)" [suggestions]="listTypeMarque"></p-autoComplete>
+            </div>
+            <div class="flex flex-column mb-2 w-33">
+                <label class="mb-2">Numéro de série : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.numeroSerie.errors">
+                    ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="numeroSerie" placeholder="...">
+            </div>
+        </div>
+        <div class="flex w-100 mb-2">
+            <div class="flex flex-column mb-2 w-33">
+                <label class="mb-2">Propriété de : *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiledDDP && ODSFormErrors?.proprieteDe.errors">
+                    ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="proprieteDe" placeholder="...">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            [severity]="Error === 0 ? 'success' : 'error'" [text]="ApiMessage"></p-message>
+    </div>
+
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Fermer" (click)="ClosePopUp(false)">
+            </button>
+        </div>
+        <div>
+            <button pButton pRipple type="submit" class="p-button-success" label="Modifier" (click)=" SubmitForm()">
+            </button>
+        </div>
+    </div>
+</form>

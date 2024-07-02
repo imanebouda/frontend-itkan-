@@ -1,0 +1,415 @@
+<div class="container">
+  <table style="border: none;" class="w-100 header">
+    <tr>
+      <td class="text-left" style="vertical-align: middle;">
+        <div class="flex flex-column">
+          <p class="colored">#codeFicheintervention#</p>
+          <p class="colored">Processus technique</p>
+        </div>
+      </td>
+      <td class="text-center" style="vertical-align: middle;">
+        <h1 style="color: #7fa2ce;font-weight: 900;">Fiche d'intervention</h1>
+      </td>
+      <td class="text-right" style="vertical-align: middle;">
+        <img src="#logo#" onerror="this.imageUrl='assets/layout/images/user-cicrle.svg'" class="logo">
+      </td>
+    </tr>
+  </table>
+  <div class="d-flex justify-content-between mb-3 w-100" style="margin:30 0px!important">
+    <div><span><strong>N°</strong>: #numero#</span></div>
+    <div><span> <strong>Prestation </strong> : VAI / VP</span></div>
+    <div><span><strong>Date </strong> : #date#</span></div>
+  </div>
+  <div class="flex mb-3">
+    <div class="border-dotted w-100">
+      <div class="tab">
+        <h2 class="colored"><span>Verification sur vehicule :</span></h2>
+        <table style="border: 1px solid #333;" class="w-100 table table-bordered">
+          <thead>
+            <tr>
+              <th class="bg-grey text-left" scope="col"><span>Client</span></th>
+              <td scope="col"><span class="value">#Clientname#</span></td>
+              <th class="bg-grey text-left" scope="col"><span>Température</span></th>
+              <td scope="col">#temperature_tachygrapheEssai#</td>
+              <th class="bg-grey text-left" scope="col">Banc</th>
+              <td scope="col">#Banc#</td>
+            </tr>
+            <tr>
+              <th class="bg-grey text-left" scope="col">Immatriculation</th>
+              <td scope="col">#Vehiculeimmatricule#</td>
+              <th class="bg-grey text-left" scope="col">Kilométrage</th>
+              <td scope="col">#kilometrage#</td>
+              <th class="bg-grey text-left" scope="col">Piste</th>
+              <td scope="col">#Piste#</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div>
+        <table style="border: 1px solid #000;margin-top: 10px;" class="w-100 table table-bordered">
+          <thead>
+            <tr>
+              <th class="th center-text">Élément</th>
+              <th class="th center-text ">Conforme</th>
+              <th class="th center-text">Non <br> Conforme</th>
+              <th class="th center-text">Observations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Véhicule à vide</td>
+              <td class="TdCheck">#ouiVehicule_vide#</td>
+              <td class="TdCheck">#nonVehicule_vide#</td>
+              <td rowspan="13"><span></span></td>
+
+            </tr>
+            <tr>
+              <td>Véhicule en bon état de marche</td>
+              <td class="TdCheck">#ouiVehicule_marche#</td>
+              <td class="TdCheck">#nonVehicule_marche#</td>
+
+            </tr>
+            <tr>
+              <td>Pression des pneus</td>
+              <td class="TdCheck">#ouiPression_pneus#</td>
+              <td class="TdCheck">#nonPression_pneus#</td>
+
+            </tr>
+            <tr>
+              <td>Usure des pneus</td>
+              <td class="TdCheck">#ouiUsure_pneus#</td>
+              <td class="TdCheck">#nonUsure_pneus#</td>
+
+            </tr>
+            <tr>
+              <td>Plombage du chronotachygraphe</td>
+              <td class="TdCheck">#ouiPlombage_chronotachygraphe#</td>
+              <td class="TdCheck">#nonPlombage_chronotachygraphe#</td>
+
+            </tr>
+            <tr>
+              <td>Tachygraphe</td>
+              <td class="TdCheck">#ouitachygraphe#</td>
+              <td class="TdCheck">#nontachygraphe#</td>
+
+            </tr>
+            <tr>
+              <td>Générateur capteur</td>
+              <td class="TdCheck">#ouiGenerateur_capteur#</td>
+              <td class="TdCheck">#nonGenerateur_capteur#</td>
+
+            </tr>
+            <tr>
+              <td>Présence des scellements</td>
+              <td class="TdCheck">#ouiPresence_scellements#</td>
+              <td class="TdCheck">#nonPresence_scellements#</td>
+
+            </tr>
+            <tr>
+              <td>Faisceau alimentation / ADR</td>
+              <td class="TdCheck">#ouiFaisceau_alimentation_ADR#</td>
+              <td class="TdCheck">#nonFaisceau_alimentation_ADR#</td>
+
+            </tr>
+            <tr>
+              <td>Faisceau de vitesse</td>
+              <td class="TdCheck">#ouiFaisceau_vitesse#</td>
+              <td class="TdCheck">#nonFaisceau_vitesse#</td>
+
+            </tr>
+            <tr>
+              <td>Etat tableau de bord</td>
+              <td class="TdCheck">#ouiEtat_tableau_bord#</td>
+              <td class="TdCheck">#nonEtat_tableau_bord#</td>
+
+            </tr>
+            <tr>
+              <td>Etat boite de vitesse</td>
+              <td class="TdCheck">#ouiEtat_boite_vitesse#</td>
+              <td class="TdCheck">#nonEtat_boite_vitesse#</td>
+            </tr>
+            <tr>
+              <td colspan="3">Autres.................</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="diVparagh colored">
+    <p class="paragh">Marque des pneus : <span class="value">#marque_pg_ext#</span></p>
+    <p class="paragh">Référence des pneus : ……………………………………………………………………</p>
+    <p class="paragh">Pression des pneus (BAR): <span class="value">#pressionPneus#</span></p>
+  </div>
+  <div class="flex mb-3 etalonnage">
+    <div class="border-dotted w-100">
+      <h2 class="colored">Vérification, et étalonnage du chronotachygraphe :</h2>
+      <table style="border: 1px solid #000;" class="w-100 table table-bordered">
+        <thead>
+          <tr>
+            <th class="bg-grey text-left" scope="col" colspan="2">Marque</th>
+            <td scope="col" colspan="2"><span class="value">#TachygrapheMarque#</span></td>
+            <th class="bg-grey text-left" scope="col" colspan="2">N° de série</th>
+            <td scope="col" colspan="4"><span class="value">#Tachygraphenum_serie#</span></td>
+            <th class="bg-grey text-left" scope="col" colspan="2">Voltage</th>
+          </tr>
+          <tr>
+            <th class="bg-grey text-left" scope="col" colspan="2">Type</th>
+            <td scope="col" colspan="2"><span class="value">#TachygrapheTypeMarque#</span></td>
+            <th class="bg-grey text-left" scope="col" colspan="2">Année</th>
+            <td scope="col" colspan="4"><span class="value">#Tachygraphedate_fabrication#</span></td>
+            <th scope="col">12V</th>
+            <td scope="col">#12Tachygraphevoltage#</td>
+          </tr>
+          <tr>
+            <th class="bg-grey text-left" scope="col" colspan="2">N° HOMO</th>
+            <td scope="col" colspan="2"><span class="value">#TachygrapheNumHomologation#</span></td>
+            <th class="bg-grey text-left" scope="col" colspan="2">V.max</th>
+            <td scope="col" colspan="4"><span class="value">#Tachygraphevitesse_max# Km/h</span></td>
+            <th scope="col">24V</th>
+            <td scope="col">#24Tachygraphevoltage#</td>
+          </tr>
+          <tr>
+            <th class="bg-grey text-left" scope="col">W1</th>
+            <td scope="col"><span class="value">#w1#</span></td>
+            <th class="bg-grey text-left" scope="col">W2</th>
+            <td scope="col">#w2#</td>
+            <th class="bg-grey text-left" scope="col">W3</th>
+            <td scope="col">#w3#</td>
+            <th class="bg-grey text-left" scope="col">Wanc</th>
+            <td scope="col">#wanc#</td>
+            <th class="bg-grey text-left" scope="col">Wnv</th>
+            <td scope="col">#nv_w#</td>
+          </tr>
+          <tr>
+            <th class="bg-grey text-left" scope="col">LD</th>
+            <td scope="col">#ld#</td>
+            <th class="bg-grey text-left" scope="col">LG</th>
+            <td scope="col">#lg#</td>
+            <th class="bg-grey text-left" scope="col">LM</th>
+            <td scope="col">#l_moyen#</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <div class="flex mb-3">
+    <div class="border-dotted">
+      <h2 class="colored">Contrôle du disque : </h2>
+      <div class="d-flex justify-content-around">
+        <div><span>Km avant cycle : #km_avant#</span></div>
+        <div><span>Km après le cycle : #km_apres#</span></div>
+      </div>
+      <div class="flex">
+        <table style="border: 1px solid #000;" class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="th center-text" colspan="5" rowspan="2"> <span>CONTROLE</span></th>
+              <th class="th center-text" rowspan="2"> <span>VALEUR</span></th>
+              <th class="th" colspan="2"><span>EMT</span></th>
+              <th class="th center-text" rowspan="2"><span>ECART</span></th>
+              <th class="th" colspan="2"><span>CONFORMITE</span></th>
+            </tr>
+            <tr>
+              <th class="th bg-grey"><span>VAI</span></th>
+              <th class="th bg-grey"><span>VP</span></th>
+              <th class="th bg-grey"><span>OUI</span></th>
+              <th class="th bg-grey"><span>NON</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5">Horloge</td>
+              <td class="center-text">#valeur_horloge#</td>
+              <td class="center-text conforme" colspan="2"> 85 s/j</td>
+              <td class="center-text">#ecart_horloge#</td>
+              <td class="center-text">#oui_horloge#</td>
+              <td class="center-text">#non_horloge#</td>
+            </tr>
+            <tr>
+              <td colspan="5">Distance</td>
+              <td class="center-text">#valeur_distance#</td>
+              <td class="center-text"> + - 2 %</td>
+              <td class="center-text">+ - 4 %</td>
+              <td class="center-text">#ecat_distance#</td>
+              <td class="center-text">#oui_distance#</td>
+              <td class="center-text">#non_distance#</td>
+            </tr>
+            <tr>
+              <td colspan="11">Tests de vitesse et d'activité</td>
+            </tr>
+            <tr>
+              <td colspan="3">Vitesse (Km/h)</td>
+              <td class="center-text">Durée (min)</td>
+              <td class="center-text">Activité</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+            </tr>
+            <tr>
+              <td class="center-text">125</td>
+              <td class="center-text">140</td>
+              <td class="center-text">180</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Conduite</td>
+              <td class="center-text">#valeur_125#</td>
+              <td class="center-text" rowspan="7">+- 4km/h</td>
+              <td class="center-text" rowspan="7">+- 6km/h</td>
+              <td class="center-text">#ecart_125#</td>
+              <td class="center-text">#oui_125#</td>
+              <td class="center-text">#non_125#</td>
+            </tr>
+            <tr>
+              <td class="center-text" colspan="3">0</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Repos</td>
+              <td class="center-text">#valeur_0#</td>
+              <td class="center-text">#ecart_0#</td>
+              <td class="center-text">#oui_0#</td>
+              <td class="center-text">#non_0#</td>
+            </tr>
+            <tr>
+              <td class="center-text" colspan="3">40</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Conduite</td>
+              <td class="center-text">#valeur_40#</td>
+              <td class="center-text">#ecart_40#</td>
+              <td class="center-text">#oui_40#</td>
+              <td class="center-text">#non_40#</td>
+            </tr>
+            <tr>
+              <td class="center-text">70</td>
+              <td class="center-text">80</td>
+              <td class="center-text">100</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Conduite</td>
+              <td class="center-text">#valeur_70#</td>
+              <td class="center-text">#ecart_70#</td>
+              <td class="center-text">#oui_70#</td>
+              <td class="center-text">#non_70#</td>
+            </tr>
+            <tr>
+              <td class="center-text">100</td>
+              <td class="center-text">120</td>
+              <td class="center-text">160</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Conduite</td>
+              <td class="center-text">#valeur_100#</td>
+              <td class="center-text">#ecart_100#</td>
+              <td class="center-text">#oui_100#</td>
+              <td class="center-text">#non_100#</td>
+            </tr>
+            <tr>
+              <td class="center-text" colspan="3">0</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Repos</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+            </tr>
+            <tr>
+              <td class="center-text" colspan="3">0</td>
+              <td class="center-text">3</td>
+              <td class="center-text">Repos</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+              <td class="center-text">…………………………</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="flex mb-3">
+    <div class="border-dotted w-100">
+      <div>
+        <h2 class="colored"><span>Test 1000 m (Sur banc à rouleaux à une vitesse de 50 km/h (+5 km/h)) : </span></h2>
+        <table style="border: 1px solid #000;" class="w-100 table table-bordered">
+          <thead>
+            <tr>
+              <th class="th center-text" rowspan="2">Vitesse Banc</th>
+              <th class="th center-text" rowspan="2">Vitesse Chrono</th>
+              <th class="th" colspan="2">EMT</th>
+              <th class="th center-text" rowspan="2">Ecart</th>
+              <th class="th" colspan="2">Conformité</th>
+            </tr>
+            <tr>
+              <th class="th bg-grey">VAI</th>
+              <th class="th bg-grey">VP</th>
+              <th class="th bg-grey">OK</th>
+              <th class="th bg-grey">NOK</th>
+            </tr>
+            <tr>
+              <td class="text-center">#valeur_vitesse_banc#</td>
+              <td class="text-center">#valeur_vitesse_chrono#</td>
+              <td class="text-center">+ - 4Km/h</td>
+              <td class="text-center">+ - 6Km/h</td>
+              <td class="text-center">#ErreurVitesse#</td>
+              <td class="text-center">#oui_vitesse#</td>
+              <td class="text-center">#non_vitesse#</td>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th class="th">Distance Banc</th>
+              <th class="th">Distance Chrono</th>
+              <th class="th bg-grey">VAI</th>
+              <th class="th bg-grey">VP</th>
+              <th class="th">Ecart</th>
+              <th class="th bg-grey">OK</th>
+              <th class="th bg-grey">NOk</th>
+            </tr>
+            <tr>
+              <td class="text-center">#valeur_distance_banc#</td>
+              <td class="text-center">#valeur_distance_chrono#</td>
+              <td class="text-center">+ - 2Km/h</td>
+              <td class="text-center">+ - 6Km/h</td>
+              <td class="text-center">#ErreurDistance#</td>
+              <td class="text-center">#oui_distance#</td>
+              <td class="text-center">#non_distance#</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div>
+        <h2 class="colored"><span>Vérification des coefficients :</span></h2>
+        <table style="border: 1px solid #000;" class="w-100 table table-bordered">
+          <tbody>
+            <tr>
+              <td class="bg-grey">La circonférence « l » corrigée des roues motrices</td>
+              <td><span class="value">#circonference_l# mm</span> </td>
+            </tr>
+            <tr>
+              <td class="bg-grey">Le coefficient W corrigé du véhicule </td>
+              <td><span class="value">#coefficient_w# lmp/km</span></td>
+            </tr>
+            <tr>
+              <td class="bg-grey">La constante du Chronotachygraphe</td>
+              <td><span class="value">#constante_chrono# lmp/km</span></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-50">
+    <div class="flex flex-column">
+      <span class="p">Visa RTC</span>
+      <div class="flex align-items-center justify-content-center">
+        <img class="canva_signature" src="#signature_rtc#">
+      </div>
+    </div>
+    <div class="flex flex-column">
+      <span class="p">Visa vérificateur</span>
+      <div class="flex align-items-center justify-content-center">
+        <img class="canva_signature" src="#signature_verificateur#">
+      </div>
+    </div>
+  </div>
+</div>

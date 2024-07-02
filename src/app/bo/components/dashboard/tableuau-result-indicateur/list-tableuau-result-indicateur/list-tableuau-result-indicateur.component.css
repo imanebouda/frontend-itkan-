@@ -1,0 +1,21 @@
+.swal-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.swal-button--modifier {
+  background-color: #3085d6;
+  color: white;
+}
+
+.swal-button--supprimer {
+  background-color: #CD5C5C;
+  color: white;
+}
+
+.swal-button--annuler {
+  background-color: #ddd;
+  color: #333;
+}/*# sourceMappingURL=list-tableuau-result-indicateur.component.css.map */

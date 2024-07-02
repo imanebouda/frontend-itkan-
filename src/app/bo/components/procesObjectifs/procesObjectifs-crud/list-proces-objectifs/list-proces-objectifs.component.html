@@ -1,0 +1,142 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- <app-nav-menu></app-nav-menu> -->
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Processus" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <b for="Titre">Titre: </b>
+                <label>{{detailProcessus?.Libelle}}</label>
+            </div>  
+            <div class="field col-4">
+                <b for="Titre">Code: </b>
+                <label>{{detailProcessus?.Code}}</label>
+            </div>  
+            <div class="field " >
+                <button pButton pRipple class="p-button-success"
+                *ngIf="generalService.canActivate('Processus Objectifs-Ajouter') && generalService.canActivatePilote(detailProcessus)" icon="pi pi-plus-circle" iconPos="left"
+                type="button" (click)="ShowFormulaire('Ajouté')" tooltipPosition="bottom" label="Créer un objectif"
+                pTooltip="Cliquez ici pour créer un nouveau  objectif">
+            </button>
+            </div> 
+        </div>
+    </div>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-fieldset legend="Liste des objectifs" >
+    <p-table  responsiveLayout="scroll" [value]="listProcesObjectifs" styleClass="p-datatable-responsive-demo"
+    (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+    [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+    [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+    currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+    sortField="label">
+    <!-- ------------------------------- Header -------------------------------- -->
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="Titre">
+                Titre <p-sortIcon field="Titre"></p-sortIcon>
+            </th>
+            <th pSortableColumn="Description">
+                Description <p-sortIcon field="Description"></p-sortIcon>
+            </th>
+            <th class="text-center">
+                Actions
+            </th>
+        </tr>
+    </ng-template>
+    <!-- -------------------------------- Body --------------------------------- -->
+    <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+        <tr>
+            <td>
+                <span class="badge badge-info">
+                    {{p?.Title}}
+                </span>
+            </td>
+          
+            <td>
+                <span class="badge badge-info">
+                    {{p?.Description}}
+                </span>
+            </td>
+          
+            <td class="text-center">
+                <div class="cm-action-btn">
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Processus Objectifs-Modifier')  && generalService.canActivatePilote(p.Processus) "
+                            pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                            tooltipPosition="left"
+                            pTooltip="Modifier l'objectif : {{p?.Title}} ?"
+                            (click)="ShowFormulaire('modifier',p)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Processus Objectifs-Supprimer')  && generalService.canActivatePilote(p.Processus)" pButton pRipple
+                        class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                        pTooltip="Supprimer l'objectif : {{p?.Title}} ?" (click)="DeleteAnProcessusObj(p)">
+                     </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Processus Objectifs-Détail')"
+                           pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info"
+                           tooltipPosition="right" pTooltip="Afficher le détail de l'objectif : {{p?.Title}} ?"
+                           (click)="ShowDetailProcessusObjectifs(p)">
+                        </i>
+                    </ng-container>   
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="7">
+                <div class="text-center">
+                    <div class="center_media">
+                        <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                    </div>
+                    <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                        Aucun enregistrement sur la base de données
+                    </p>
+                    <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                        Chargement ...
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</p-fieldset>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '40vw'}">
+    <app-update-proces-objectifs [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-proces-objectifs>
+</p-dialog> 
+
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de l'objectif"
+[(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+[style]="{'min-width': '40vw'}">
+<app-add-proces-objectifs *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+</app-add-proces-objectifs>
+</p-dialog> 
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de detail                            -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" [resizable]="false" header="{{Detail_info}}" [(visible)]="if_show_detail" 
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'width': '40vw'}">
+    <p-card>
+        <app-detail-proces-objectifs [data_selected_proces_objectifs]="data_selected_proces_objectifs" *ngIf="if_show_detail">
+        </app-detail-proces-objectifs>
+    </p-card>
+</p-dialog>

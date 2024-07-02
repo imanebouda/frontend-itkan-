@@ -1,0 +1,32 @@
+<app-loader *ngIf="is_loading"></app-loader>
+
+<form [formGroup]="UpdateclientForm" (ngSubmit)="SubmitForm()">
+    <div class="text-center flex justify-content-center">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex w-100 mb-2">
+        <div class="col-12">
+            <label class="mb-2">Titre * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && UpdateclientForm.get('Libelle').errors?.required">
+                (Invalide)
+            </span>
+            <input pInputText type="text" formControlName="Libelle" placeholder="...">
+        </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer" (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Modifier" (click)="SubmitForm()">
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

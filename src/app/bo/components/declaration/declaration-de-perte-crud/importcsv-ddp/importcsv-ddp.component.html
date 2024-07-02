@@ -1,0 +1,43 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Fichier" [toggleable]="true">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col">
+            <label>Fichier format csv</label>
+            <input pInputText (change)="onFileChange($event)" type="file" placeholder="...">
+        </div>
+
+    </div>
+</p-fieldset>
+<br>
+<p-fieldset legend="Importer ODS" [toggleable]="true">
+    <form [formGroup]="csvFormGroup" (ngSubmit)="onSubmit()">
+        <ng-container *ngFor="let filed of fields">
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col">
+                    <label>{{filed}}</label>
+                </div>
+                <div class="field col">
+                    <label>Les champ de la table ods</label>
+                    <p-dropdown [formControl]="csvFormGroup.get(filed)" appendTo="body" [autoDisplayFirst]="false"
+                        [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true" [options]="headerNames"
+                        [filter]="true" placeholder="..." emptyFilterMessage="Aucun" emptyMessage="Aucun"
+                        scrollHeight="130px">
+                    </p-dropdown>
+                </div>
+            </div>
+        </ng-container>
+        <div *ngIf="file" class="flex justify-content-between center_media mt-2">
+            <div>
+                <button pButton pRipple type="submit" class="p-button-success" label="Ajouter">
+                </button>
+            </div>
+        </div>
+        <div class="flex center_media mt-2" style="flex-direction:column;">
+            <ng-container *ngFor="let item of errors">
+                <p style="color: brown;">{{item}}</p>
+            </ng-container>
+        </div>
+    </form>
+</p-fieldset>

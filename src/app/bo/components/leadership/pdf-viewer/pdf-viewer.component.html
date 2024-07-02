@@ -1,0 +1,8 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<ngx-extended-pdf-viewer [src]="pdfurl"></ngx-extended-pdf-viewer>
+<div class="flex justify-content-between center_media mt-2">
+    <div>
+        <button pButton pRipple type="button" class="p-button-danger" label="Fermer" (click)="ClosePopUp(false)"></button>
+    </div>
+</div>
+	

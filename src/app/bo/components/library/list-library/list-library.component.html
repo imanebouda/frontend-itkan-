@@ -1,0 +1,188 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="flex">
+			<div class="col-6">
+				<p-card header="Bibliothèque" style="margin-bottom: 10px;">
+					<p-tree [value]="processusData" selectionMode="single" [(selection)]="selectedNode"
+						[style]="{'width':'100%'}">
+						<ng-template let-node pTemplate="default">
+							<span class="ui-treenode-label">{{node.label}}</span>
+						</ng-template>
+					</p-tree>
+				</p-card>
+			</div>
+			<div *ngIf="selectedNode" class="col-6" style="position: fixed; right: 20px;width: 40%;">
+				<p-fieldset *ngIf="selectedNode.data.type === 'Objectif'" legend="Detail objectif" [toggleable]="true">
+					<div class="summary">
+						<div class="p-fluid p-formgrid grid">
+							<div class="field col">
+								<b for="Title">Title : </b>
+								<label>{{selectedNode?.data.label}}</label>
+							</div>
+							<div class="field col">
+								<b for="Date">Date de création : </b>
+								<label>{{selectedNode?.data.date | date:'dd/MM/yyyy' }}</label>
+							</div>
+						</div>
+						<div class="p-fluid p-formgrid grid">
+							<div class="field col" style="width: 100%;">
+								<b for="Description">Description : </b>
+								<label>{{selectedNode?.data.description}}</label>
+							</div>
+						</div>
+					</div>
+				</p-fieldset>
+
+				<p-fieldset *ngIf="selectedNode.data.type === 'ProcesDocument'" legend="Detail document"
+					[toggleable]="true">
+					<div class="summary">
+						<div class="p-fluid p-formgrid grid">
+							<div class="field col-12">
+								<div class="flex center_media mt-2" style="column-gap: 10px;">
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Processus-Télecharger')" pRipple style="cursor: pointer;" tooltipPosition="left"
+											pTooltip="Télécharger le document : {{selectedNode?.data.label}}"
+											(click)="downloadDocumentProcessus(selectedNode?.parent.parent.key,selectedNode?.data.fileExt)">
+											<img *ngIf="selectedNode?.data.fileExt === 'pdf'"
+												src="./assets/layout/images/icons-pdf.png" alt="image icons_pdf">
+											<img *ngIf="selectedNode?.data.fileExt === 'docx'"
+												src="./assets/layout/images/icons-word.png" alt="image icons_word">
+											<img *ngIf="selectedNode?.data.fileExt=== 'xlsx'"
+												src="./assets/layout/images/icons-excel.png" alt="image icons_excel">
+											<br>
+											<label>{{selectedNode?.data.label}}</label>
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Processus-Modifier') && generalService.canActivatePilote(selectedNode?.data)" pButton pRipple class="p-button-rounded p-button-info mr-2"
+											icon="pi pi-pencil" tooltipPosition="left"
+											pTooltip="Modifier le document : {{selectedNode?.data.label }} ?"
+											(click)="ShowFormulaire('modifier_proces',selectedNode)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Processus-Supprimer') && generalService.canActivatePilote(selectedNode?.data)"  pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash"
+											tooltipPosition="right"
+											pTooltip="Supprimer le document  : {{selectedNode?.data.label }} ?"
+											(click)="DeleteAnProcessusDocuments(selectedNode.data)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Processus-Télecharger')" pButton pRipple class="p-button-rounded p-button-help mr-2"
+											icon="pi pi-download" tooltipPosition="left"
+											pTooltip="Télécharger le document : {{selectedNode?.data.label}}"
+											(click)="downloadDocumentProcessus(selectedNode?.parent.parent.key , selectedNode?.data.fileExt)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Processus-Statut') && generalService.canActivatePilote(selectedNode?.data)"  pButton pRipple pButton pRipple class="p-button-rounded p-button-warning"
+											icon="pi pi-lock-open" tooltipPosition="right"
+											pTooltip="Archiver le document  : {{selectedNode?.data.label}} ?"
+											(click)="StatutAnProcessusDocuments(selectedNode.data)">
+										</i>
+									</ng-container>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p-fieldset>
+
+
+				<p-fieldset *ngIf="selectedNode.data.type === 'ProcDocument'" legend="Detail document"
+					[toggleable]="true">
+					<div class="summary">
+						<div class="p-fluid p-formgrid grid">
+							<div class="field col-12">
+								<div class="flex center_media mt-2" style="column-gap: 10px;">
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Procédures-Télecharger')" pRipple style="cursor: pointer;" tooltipPosition="left"
+											pTooltip="Télécharger le document : {{selectedNode?.data.label}}"
+											(click)="downloadDocumentProce(selectedNode?.parent.parent.key , selectedNode?.data.fileExt)">
+											<img *ngIf="selectedNode?.data.fileExt === 'pdf'"
+												src="./assets/layout/images/icons-pdf.png" alt="image icons_pdf">
+											<img *ngIf="selectedNode?.data.fileExt === 'docx'"
+												src="./assets/layout/images/icons-word.png" alt="image icons_word">
+											<img *ngIf="selectedNode?.data.fileExt=== 'xlsx'"
+												src="./assets/layout/images/icons-excel.png" alt="image icons_excel">
+											<br>
+											<label>{{selectedNode?.data.label}}</label>
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Procédures-Modifier') && generalService.canActivatePilote(selectedNode?.data)" pButton pRipple class="p-button-rounded p-button-info mr-2"
+											icon="pi pi-pencil" tooltipPosition="left"
+											pTooltip="Modifier le document: {{selectedNode?.data.label }} ?"
+											(click)="ShowFormulaire('modifier_proc',selectedNode)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Procédures-Supprimer') && generalService.canActivatePilote(selectedNode?.data)" pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash"
+											tooltipPosition="right"
+											pTooltip="Supprimer le document: {{selectedNode?.data.label}} ?"
+											(click)="DeleteAnProcedureDocuments(selectedNode)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Procédures-Télecharger')" pButton pRipple class="p-button-rounded p-button-help mr-2"
+											icon="pi pi-download" tooltipPosition="left"
+											pTooltip="Télécharger le document : {{selectedNode?.data.label}}"
+											(click)="downloadDocumentProce(selectedNode?.parent.parent.key , selectedNode?.data.fileExt)">
+										</i>
+									</ng-container>
+									<ng-container>
+										<i *ngIf="generalService.canActivate('Documents Procédures-Statut')&& generalService.canActivatePilote(selectedNode?.data)" pButton pRipple
+											pButton pRipple class="p-button-rounded p-button-warning"
+											icon="pi pi-lock-open" tooltipPosition="right"
+											pTooltip="Archiver le document  : {{selectedNode?.data.label}} ?"
+											(click)="StatutAnProcedureDocuments(selectedNode )">
+										</i>
+									</ng-container>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p-fieldset>
+			</div>
+
+
+		</div>
+
+
+
+
+		<!-- Ajoutez le contenu du panneau ici en utilisant les propriétés du noeud sélectionné (selectedNode) -->
+
+	</div>
+</div>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+	[(visible)]="if_show_proces_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+	[style]="{'min-width': '30vw'}">
+	<app-update-document-processus [data_selected_Dp]="data_selected_Dp" *ngIf="if_show_proces_modifier"
+		(FermerPopUp)="CloseUpdate($event)">
+	</app-update-document-processus>
+</p-dialog>
+
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+	[(visible)]="if_show_proc_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+	[style]="{'min-width': '30vw'}">
+	<app-update-document-procedure [data_selected_Dp]="data_selected_Dp" *ngIf="if_show_proc_modifier"
+		(FermerPopUp)="CloseUpdate($event)">
+	</app-update-document-procedure>
+</p-dialog>
+<!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de Document"
+	[(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+	[style]="{'min-width': '30vw' }">
+	<p-card>
+		<app-add-document *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+		</app-add-document>
+	</p-card>
+</p-dialog>

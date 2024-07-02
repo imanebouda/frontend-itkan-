@@ -1,0 +1,34 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <p-message class="mb-3" [showTransitionOptions]="'0ms'" *ngIf="IsHidden" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+        <div
+            style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-5 px-8 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-3">
+                    <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.png"
+                        alt="ChronoSys logo" class="mb-2 w-6rem flex-shrink-0">
+                    <div class="text-900 text-3xl font-medium mb-3">Bienvenue !</div>
+                    <span class="text-600 font-medium">Connectez-vous pour continuer</span>
+                </div>
+
+                <form [formGroup]="FormulaireLogin" (ngSubmit)="LoginUtilisateur()">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Login</label>
+                    <input id="email1" formControlName="username" type="text" placeholder="Login" pInputText
+                        class="w-full md:w-30rem mb-5" style="padding:1rem">
+
+                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
+                    <input id="password1" formControlName="password" type="password" placeholder="Mot de passe "
+                        pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+
+                    <div class="flex align-items-center justify-content-between mb-3 gap-5">
+                        <a  routerLink="/auth/forgot-password" class="font-medium no-underline ml-2 text-right cursor-pointer"
+                            style="color: var(--primary-color)">Mot de passe oublié?</a>
+                    </div>
+                    <button pButton pRipple label="S'identifier" class="w-full p-3 text-xl" type="submit"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

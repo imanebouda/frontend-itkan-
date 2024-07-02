@@ -1,0 +1,26 @@
+<form [formGroup]="addChecklistForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <label for="typeAudit">Type d'Audit</label>
+        <select class="form-control" id="typeAuditId" formControlName="typeAuditId">
+            <option *ngFor="let type of typeAuditOptions" [ngValue]="type.id">{{ type.type }}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="processusID">Processus</label>
+        <select class="form-control" id="processusID" formControlName="processusID">
+            <option *ngFor="let processus of processusOptions" [value]="processus.id">{{ processus.code }}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="smQ_ID">SMQ</label>
+        <select class="form-control" id="smQ_ID" formControlName="smQ_ID">
+            <option *ngFor="let smq of smqOptions" [value]="smq.id">{{ smq.libelle }}</option>
+        </select>
+    </div>
+ <!--   <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" formControlName="description"></textarea>
+    </div> -->
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+</form>

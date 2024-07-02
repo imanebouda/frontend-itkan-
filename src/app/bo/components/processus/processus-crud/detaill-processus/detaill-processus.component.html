@@ -1,0 +1,145 @@
+<!-- <app-nav-menu ></app-nav-menu> -->
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset  [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <b for="Code">Code : </b>
+                <label>{{detailProcessus?.Code}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="Version">Version : </b>
+                <label>{{detailProcessus?.Version}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="Titre">Titre: </b>
+                <label>{{detailProcessus?.Libelle}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="PL/PCL">PL : </b>
+                <label>{{detailProcessus?.NamePilote}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="PL/PCL">CPL : </b>
+                <label>{{detailProcessus?.NameCoPilote}}</label>
+            </div>
+            <div class="field col-4" >
+                <b for="Date ">Date d'application: </b>
+                <label>{{detailProcessus?.created_at  | date: 'dd/MM/yyyy'  }}</label>
+            </div>
+            <div class="field col-4" >
+                <b for="SMQ">SMQ: </b>
+                <label>{{detailProcessus?.SMQ.Libelle }}</label>
+            </div>
+            <div class="field col-4" >
+                <b for="SMQ">Catégorie: </b>
+                <label>{{detailProcessus?.Categories.Libelle }}</label>
+            </div>
+            <div class="field col-12" >
+                <b for="Description">Description: </b>
+                <label>{{detailProcessus?.Description }} </label>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+
+
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<br>
+<hr>
+<p-fieldset *ngIf="detailProcesDocuments && detailProcessus" legend="Détail Document" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <div class="flex center_media mt-2" style="column-gap: 10px;">
+                    <ng-container >
+                        <i *ngIf="generalService.canActivate('Documents Processus-Télecharger')" pRipple style="cursor: pointer;"
+                            tooltipPosition="left" pTooltip="Télécharger le document Processus: {{detailProcesDocuments?.Libelle}}"
+                            (click)="downloadDocument(detailProcesDocuments?.ProcessusID)">
+                            <img *ngIf="detailProcesDocuments?.ExtensionFile === '.pdf'" src="./assets/layout/images/icons-pdf.png"   alt="image icons_pdf">
+                            <img *ngIf="detailProcesDocuments?.ExtensionFile === '.docx'" src="./assets/layout/images/icons-word.png"  alt="image icons_word">
+                            <img *ngIf="detailProcesDocuments?.ExtensionFile === '.xlsx'" src="./assets/layout/images/icons-excel.png"  alt="image icons_excel">
+                            <br>
+                            <label >{{detailProcesDocuments?.Libelle}} {{detailProcesDocuments?.CoPilote}}</label>
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Processus-Modifier') && generalService.canActivatePilote(detailProcesDocuments)"
+                            pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                            tooltipPosition="left"
+                            pTooltip="Modifier les informations du document Processus: {{detailProcesDocuments?.Libelle}} ?"
+                            (click)="ShowFormulaire('modifier',detailProcesDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Processus-Supprimer')  && generalService.canActivatePilote(detailProcesDocuments)" pButton pRipple
+                        class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                        pTooltip="Supprimer le documentsu Processus : {{detailProcesDocuments?.Libelle}} ?" (click)="DeleteAnProcessusDocuments(detailProcesDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Processus-Télecharger') "
+                            pButton pRipple class="p-button-rounded p-button-help mr-2" icon="pi pi-download"
+                            tooltipPosition="left" pTooltip="Télécharger le document Processus: {{detailProcesDocuments?.Libelle}}"
+                            (click)="downloadDocument(detailProcesDocuments?.ProcessusID)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Processus-Statut')  && generalService.canActivatePilote(detailProcesDocuments)" pButton pRipple
+                         pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-lock-open" tooltipPosition="right"
+                         pTooltip="Archiver le document  : {{detailProcesDocuments?.Libelle}} ?" (click)="StatutAnProcessusDocuments(detailProcesDocuments )">
+                        </i>
+                        <!-- Dans votre template HTML -->
+
+
+
+                    </ng-container>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+
+<p-fieldset *ngIf="!detailProcesDocuments" legend="Détail Document" [toggleable]="true">
+    <ng-container>
+        <i *ngIf="generalService.canActivate('Documents Processus-Ajouter') && generalService.canActivatePilote(detailProcesDocuments) "
+        pButton pRipple class="p-button-rounded p-button-success" icon="pi pi-plus-circle"
+        tooltipPosition="left" pTooltip="Ajouter un document Processus : {{detailProcesDocuments?.Libelle}}"
+        (click)="ShowFormulaire('Ajouté')">
+        </i>
+
+        <a class="p-link" routerLink="/listCheckList">
+            <!-- Ajoutez ici l'icône de PrimeNG -->
+            <i class="pi pi-arrow-right"></i> CHECKLIST
+        </a>
+    </ng-container>
+</p-fieldset>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '30vw'}">
+    <app-update-proces-documents [data_selected_Dp]="detailProcesDocuments" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-proces-documents>
+</p-dialog>
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de Document"
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '30vw' }" >
+    <p-card>
+        <app-add-proces-documents *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+        </app-add-proces-documents>
+    </p-card>
+</p-dialog>
+
+
+

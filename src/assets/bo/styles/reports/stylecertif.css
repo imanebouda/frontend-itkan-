@@ -1,0 +1,207 @@
+* {
+    outline: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+
+.certif-report {
+    background-color: white;
+    color: black;
+}
+
+.circelbrand {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.header-report {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-report img {
+    height: 100px;
+}
+
+.info-centre-certif {
+    display: flex;
+    flex-direction: row;
+}
+
+.info-centre {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+
+.info-certif span {
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    white-space: nowrap;
+    transform: rotate(180deg);
+    font-size: 10px;
+}
+
+.info-centre p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.body-report {
+    margin-top: 10px;
+}
+
+.body-report .titles-report .titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-report .titles-report .titles .title {
+    margin-bottom: 15px;
+}
+
+.title.title-3 p {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.title p {
+    padding: 0;
+    margin: 0;
+}
+
+.row.client-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-body-report-h {
+    display: flex;
+    justify-content: center;
+    background-color: #ffe4c4;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.item-body-report-b {
+    margin: 0px 0px 0px 20px;
+}
+
+.item-body-report-b-v {
+    margin: 5px 0px 5px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-body-report-h span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+span.item-value {
+    font-weight: 500;
+}
+
+.row.last-info.item-body-report {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.minist-arrete {
+    display: flex;
+    justify-content: center;
+    margin: 10px 20px;
+}
+
+.minist-arrete span {
+    text-align: center;
+    padding: 5px 15px;
+    border: 3px solid black;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: system-ui;
+}
+
+.info-complementaires {
+    display: flex;
+    margin: 5px 20px 15px 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.note-lieu-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+span.note {
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+span.lieu-date {
+    font-weight: 600;
+}
+
+.installateur-organisme {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.installateur {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.organisme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.organisme span,
+.installateur span {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.print-footer {
+    border-top: 5px solid;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.notebold {
+    font-weight: bold !important;
+}
+
+.certif-report,
+.print-footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#print-section-certif {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}

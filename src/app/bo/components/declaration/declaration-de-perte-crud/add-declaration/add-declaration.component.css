@@ -1,0 +1,26 @@
+::ng-deep .p-autocomplete {
+  width: 100% !important;
+}
+::ng-deep .p-inputtext {
+  width: 100%;
+}
+::ng-deep .wizard-content {
+  margin-top: 50px;
+  padding: 20px;
+}
+::ng-deep .wizard-footer {
+  text-align: right;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+::ng-deep .wizard-footer button.p-element.p-button.p-component.ng-star-inserted {
+  margin-right: 10px;
+}
+::ng-deep .summary {
+  display: flex;
+  flex-wrap: wrap;
+}
+::ng-deep .summary .field label {
+  margin-right: 20px;
+}/*# sourceMappingURL=add-declaration.component.css.map */

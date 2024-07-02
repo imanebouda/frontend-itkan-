@@ -1,0 +1,40 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.png"
+            alt="logo">
+        <!-- <span style="background-color: black;border-radius: 20px;">ITKANSys</span> -->
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu"
+        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <button (click)="menu.toggle($event)" class="p-link layout-topbar-button">
+            <i class="pi pi-user"></i>
+            <span>Profile</span>
+        </button>
+        <p-menu #menu [model]="itemsprofiles" [popup]="true"></p-menu>
+        <button *ngIf="generalService.canActivate('Organisme-Consulter')" class="p-link layout-topbar-button"
+            [routerLink]="'/organisme'">
+            <i style="color: black; background-color: #cadaeb;padding: 8px;border-radius: 50%;" class="pi pi-cog"></i>
+            <span>Settings</span>    
+        </button>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--               Formulaire de modification du mot de passe                -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" header="{{Header_info}}" [(visible)]="if_show_update_password" [resizable]="false"
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'min-width': '50vw'}">
+    <app-password [data_selected_user]="data_selected_user" *ngIf="if_show_update_password"
+        (FermerPopUp)="ClosePassword($event)">
+    </app-password>
+</p-dialog>
+

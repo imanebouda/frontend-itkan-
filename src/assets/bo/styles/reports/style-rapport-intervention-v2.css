@@ -1,0 +1,251 @@
+* {
+    outline: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.mr-1 {
+    margin-right: 2px;
+}
+
+.flexrow {
+    display: flex;
+    flex-direction: row;
+}
+.flexrow td{
+padding: 5px;
+}
+.rapport-intervention {
+    background-color: white;
+}
+
+.circelbrand {
+    padding: 5px;
+    border-radius: 5px;
+    text-align: right;
+    border: 1px solid;
+}
+
+.div-p {
+    width: 50%;
+    height: 150px;
+}
+
+.divimg {
+    padding: 5px;
+    height: 150px;
+    width: 300px;
+    border: 1px solid #a8a8a8;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.divimg img {
+    height: 150px;
+    width: 300px;
+}
+
+.list-materiaux {
+    display: flex;
+}
+
+.item-etalonnage {
+    margin-right: 5px;
+}
+
+.header-report {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px black solid;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.title-report {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.header-report .chrono-sys img {
+    height: 3rem;
+    padding: 5px 0;
+}
+
+
+.body-report .first-div .span-orga {
+    font-weight: bold;
+}
+
+.body-report .first-div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.body-report .third-div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.body-report .third-div span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.col-md-12.forth-div {
+    margin-top: 25px;
+}
+
+.body-report .second-div .row,
+.body-report .forth-div .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-report .forth-div .row .col-md-6 {
+    width: 50%;
+}
+
+#pageFooter {
+    display: table-footer-group;
+}
+
+#pageFooter:after {
+    counter-increment: page;
+    content: "Page " counter(page);
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+.relative {
+    position: relative;
+    height: 100%;
+}
+
+.body-report .second-div .row .organisme-info,
+.body-report .second-div .row .ods-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.forth-div-span {
+    font-weight: bold;
+}
+
+#print-section-report {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+.print-footer {
+    border-top: 5px solid;
+    position: absolute;
+    padding: 10px 0;
+    bottom: 0;
+    left: 0px;
+    right: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.print-footer span {
+    text-align: center;
+    width: 90%;
+}
+
+.item {
+    font-size: 11px;
+}
+
+.third-div-0 {
+    width: 100%;
+    display: flex;
+}
+
+.forth-div-0,
+.fifth-div-0,
+.sixth-div-0,
+.row-div-0 {
+    width: 100%;
+    display: flex;
+}
+
+.col-div-3-0 {
+    width: 25%;
+}
+
+.col-div-4-0 {
+    width: 33.33%;
+}
+
+.col-div-6-0 {
+    width: 50%;
+}
+
+.title-item-zise-1 {
+    font-weight: bold;
+}
+
+.col-div-8-0 {
+    width: 50%;
+}
+
+.col-div-12-0 {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.title-item-zise-2 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.tdcenter {
+    text-align: center;
+}
+
+.text-xs {
+    font-size: 0.60rem !important;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.mb-6 {
+    margin-bottom: 3rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.break-line {
+    display: flex;
+    flex-direction: column;
+}

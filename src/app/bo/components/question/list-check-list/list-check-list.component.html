@@ -1,0 +1,143 @@
+<!-- list-check-list.component.html -->
+
+<p-fieldset legend="Recherchez les Questions" [toggleable]="true">
+  <form [formGroup]="formulaireRecherche" (ngSubmit)="searchQuestions()">
+    <div class="d-flex justify-content-center mb-3">
+      <div class="field col-4 text-center">
+        <label class="mb-2">Type de Question</label>
+        <p-dropdown [options]="typeQuestion" formControlName="typeChecklist" [filter]="true" placeholder="Sélectionnez un type de Question">
+          <ng-template let-element pTemplate="item">
+            <div class="flex justify-content-between">
+              <span class="font-12">{{ element?.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
+      <button type="submit" pButton pRipple class="p-button" label="Ajouter Question" tooltipPosition="right" style="font-size: 11px !important;" (click)="openAddCheckListModal()"></button>
+      <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left" label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;"></button>
+      <div>
+        <button pButton pRipple class="ml-2 p-button-rounded" icon="pi pi-filter-slash" tooltipPosition="left" pTooltip="Cliquez ici pour vider le formulaire" (click)="clearSearch()"></button>
+      </div>
+    </div>
+  </form>
+  <!-- Other HTML content -->
+
+</p-fieldset>
+
+<br>
+<hr>
+
+<app-loader *ngIf="is_loading"></app-loader>
+
+<p-card class="m-1 mt-1 mb-1">
+  <p-table responsiveLayout="scroll" [value]="questions" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="questions.length" [lazy]="true" [sortOrder]="1" sortField="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">ID du Question <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="niveau">Niveau <p-sortIcon field="niveau"></p-sortIcon></th>
+        <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+        <th pSortableColumn="typeCheckListAudit.type">Type <p-sortIcon field="typeCheckListAudit.type"></p-sortIcon></th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-checkList>
+      <tr>
+        <td>{{ checkList.id }}</td>
+        <td>{{ checkList.name }}</td>
+        <td>{{ checkList.niveau }}</td>
+        <td>{{ checkList.code }}</td>
+        <td>{{ checkList.description }}</td>
+        <td>{{ checkList.typeCheckListAudit?.type }}</td>
+        <td class="text-center">
+          <div class="cm-action-btn">
+            <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left" (click)="openUpdateDialog(checkList)"></i>
+            <i pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right" (click)="deleteCheckList(checkList)"></i>
+            <i pButton pRipple class="p-button-rounded p-button-primary ml-2" icon="pi pi-plus" tooltipPosition="left" (click)="openAffectConstatModal(checkList)"></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+
+<p-dialog [(visible)]="showDialog" [modal]="true" [resizable]="false" styleClass="custom-dialog-style" header="Constat">
+    <div class="custom-dialog-content">
+        <!-- Contenu de la fenêtre avec une apparence différente -->
+        <label class="custom-dialog-label">CONSTAT</label>
+        <p-dropdown [options]="options" [(ngModel)]="selectedOption" placeholder="Sélectionnez une option"
+                    [style]="{ 'max-height': '200px', 'overflow-y': 'auto' }">
+        </p-dropdown>
+        <button class="custom-dialog-button" >Enregistrer</button>
+    </div>
+</p-dialog>
+
+
+<!-- Update Modal -->
+<div #updateModal class="modal fade" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Question</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-update-check-list [selectedCheckList]="selectedCheckList" (closeUpdateDialog)="closeUpdateDialog()"></app-update-check-list>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Modal -->
+<div #addModal class="modal fade" tabindex="-1" aria-labelledby="adddModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Ajouter Checklist</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      </div>
+      <div class="modal-body">
+        <app-add-check-list [addCheckList]="addChecklist" (closeUpdateDialog)="closeAddDialog()"></app-add-check-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal d'ajout de constat -->
+<div #constatModal class="modal fade" id="constatModal" tabindex="-1" aria-labelledby="constatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="constatModalLabel">Ajouter Constat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="constatForm">
+          <div class="mb-3">
+            <label for="constat" class="form-label">Constat</label>
+            <input type="text" class="form-control" id="constat" formControlName="constat">
+          </div>
+          <div class="mb-3">
+            <label for="typeConstatId" class="form-label">Type de Constat</label>
+            <select class="form-select" id="typeConstatId" formControlName="typeConstatId">
+              <option *ngFor="let type of typeConstats" [value]="type.id">{{ type.type }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="saveConstat()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="flex justify-content-center mt-3">
+    <button pButton pRipple type="button" icon="pi pi-file-pdf" label="Générer l'audit" class="p-button-info" style="color: black;"></button>
+</div>

@@ -1,0 +1,77 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="text-center flex justify-content-center">
+    <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+</div>
+<br>
+<form [formGroup]="clientForm" (ngSubmit)="SubmitForm()">
+    <div class="flex w-100 mb-2">
+        <div class="field col-6">
+            <label class="mb-2">Année * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && resultindicateurFormErrors?.Annee.errors">
+                ( Invalide )
+            </span>
+            <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listAnnee" formControlName="Annee" [filter]="true"
+                placeholder="Année" emptyFilterMessage="Aucune Année"
+                emptyMessage="Aucune Année" scrollHeight="130px">
+            </p-dropdown>
+        </div>
+        <div class="field col-6">
+            <label class="mb-2">Période * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && resultindicateurFormErrors?.Periode.errors">
+                ( Invalide )
+            </span>
+            <p-dropdown *ngIf="detailIndicateur.Frequence === 'Annuelle' " [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listAnnuelle" formControlName="Periode" [filter]="true"
+                placeholder="Année" emptyFilterMessage="Aucune Période"
+                emptyMessage="Aucune Période" scrollHeight="130px">
+            </p-dropdown>
+            <p-dropdown *ngIf="detailIndicateur.Frequence === 'Semestrielle' " [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listSemestrielle" formControlName="Periode" [filter]="true"
+                placeholder="S1 ,S2" emptyFilterMessage="Aucune Période"
+                emptyMessage="Aucune Période" scrollHeight="130px">
+            </p-dropdown>
+            <p-dropdown *ngIf="detailIndicateur.Frequence === 'Quadrimestrielle' " [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listQuadrimestrielle" formControlName="Periode" [filter]="true"
+                placeholder="Q1 ,Q2 ,Q3" emptyFilterMessage="Aucune Période"
+                emptyMessage="Aucune Période" scrollHeight="130px">
+            </p-dropdown>
+            <p-dropdown *ngIf="detailIndicateur.Frequence === 'Trimestrielle' " [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listTrimestrielle" formControlName="Periode" [filter]="true"
+                placeholder="T1 ,T2 ,T3" emptyFilterMessage="Aucune Période"
+                emptyMessage="Aucune Période" scrollHeight="130px">
+            </p-dropdown>
+            <p-dropdown *ngIf="detailIndicateur.Frequence === 'Mensuelle' " [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="listMensuelle" formControlName="Periode" [filter]="true"
+                placeholder="Mois" emptyFilterMessage="Aucune Période"
+                emptyMessage="Aucune Période" scrollHeight="130px">
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="flex w-100 mb-2">
+        <div class="field col-6">
+            <label class="mb-2">Résultat * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && resultindicateurFormErrors?.Resultat.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="number" formControlName="Resultat"   placeholder="Saisir résultat " >
+        </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer"
+                (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Ajouter" (click)="SubmitForm()"
+                    [disabled]="Disabled || is_loading"></button>
+            </div>
+        </div>
+    </div>
+</form>

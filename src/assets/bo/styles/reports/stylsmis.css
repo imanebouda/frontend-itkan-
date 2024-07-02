@@ -1,0 +1,99 @@
+.header-report {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px black solid;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+h3 {
+    font-size: 15px !important;
+}
+
+span,
+.para-1 {
+    font-size: 14px !important;
+}
+
+.circelbrand {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.header-report .chrono-sys img {
+    height: 3rem;
+}
+
+.body-report .first-div .span-orga {
+    font-weight: bold;
+}
+
+.body-report .first-div {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.body-report .third-div {
+    margin-top: 50px;
+}
+
+.body-report .second-div .row,
+.body-report .forth-div .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-report .second-div .row .organisme-info,
+.body-report .second-div .row .ods-info,
+.body-report .forth-div .row .client-info,
+.body-report .forth-div .row .vehicule-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.body-report .sixth-div .row .item.item-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.body-report .sixth-div .row .item.item-1 {
+    margin-bottom: 20px;
+}
+
+.body-report .sixth-div .row .item.item-4 p {
+    font-size: 12px;
+}
+
+.body-report .fifth-div {
+    margin-top: 80px;
+}
+
+.body-report .seventh-div .row div {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-ods,
+.print-footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#print-section {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+.print-footer {
+    border-top: 5px solid;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}

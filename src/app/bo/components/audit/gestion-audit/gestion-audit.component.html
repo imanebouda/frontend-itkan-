@@ -1,0 +1,83 @@
+<app-loader *ngIf="is_loading"></app-loader>
+
+<p-card class="m-1 mt-1 mb-1 check-list-card">
+  <p-table responsiveLayout="scroll" [value]="listDeclaration" styleClass="p-datatable-responsive-demo"
+             (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+             [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+             [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+             currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+             sortField="label">
+    <!-- ------------------------------- Header -------------------------------- -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="Code">
+          <span style="color: black;">Code</span> <p-sortIcon field="Code"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Libelle">
+          <span style="color: black;">Titre</span> <p-sortIcon field="Libelle"></p-sortIcon>
+        </th>
+        <th pSortableColumn="Version">
+          <span style="color: black;">Version</span> <p-sortIcon field="Version"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="NamePilote">
+          <span style="color: black;">PL</span> <p-sortIcon field="NamePilote"></p-sortIcon>
+        </th>
+        <th pSortableColumn="NameCoPilote">
+          <span style="color: black;">CPL</span> <p-sortIcon field="NameCoPilote"></p-sortIcon>
+        </th>
+        <th pSortableColumn="CreationDate">
+          <span style="color: black;">Date d'application</span> <p-sortIcon field="CreationDate"></p-sortIcon>
+        </th>
+        <th class="text-center">
+          Actions
+        </th>
+      </tr>
+    </ng-template>
+
+    <!-- -------------------------------- Body --------------------------------- -->
+    <ng-template pTemplate="body" let-p let-expanded="expanded">
+      <tr>
+        <td>
+          <span class="badge badge-info" style="color: black;">
+              {{p?.Code}}
+          </span>
+        </td>
+
+        <td>
+          <span class="badge badge-info" style="color: black;">
+              {{p?.Libelle}}
+          </span>
+        </td>
+        <td>
+          <span class="badge badge-info" style="color: black;">
+              {{p?.Version}}
+          </span>
+        </td>
+
+        <td>
+          <span class="badge badge-info" style="color: black;">
+              {{p?.NamePilote}}
+          </span>
+        </td>
+        <td>
+          <span class="badge badge-info" style="color: black;">
+              {{p?.NameCoPilote}}
+          </span>
+        </td>
+        <td style="width: 15%;">
+          <span class="badge badge-info" style="color: black;">
+              {{ p?.CreationDate | date: 'dd/MM/yyyy'  }}
+          </span>
+        </td>
+        <td class="text-center">
+          <i *ngIf="generalService.canActivate('Processus-Détail')"
+             pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info"
+             tooltipPosition="right" pTooltip="Afficher le détail: {{p?.Code}}"
+             (click)="DetailAnProcessus(p)">
+          </i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

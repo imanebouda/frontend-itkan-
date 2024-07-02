@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h5>Liste des Sites à auditer</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID du Site à auditer</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Ville</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let siteAudit of siteAudits">
+                <tr>
+                    <td>{{ siteAudit.id }}</td>
+                    <td>{{ siteAudit.name }}</td>
+                    <td>{{ siteAudit.address }}</td>
+                    <td>{{ siteAudit.city }}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)=" deleteSiteAudit(siteAudit)">SUPPRIMER</button>
+                        <a class="btn btn-success" [routerLink]="['/editSiteAudit', siteAudit.id]">MODIFIER</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+
+<div class="summary">
+    <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <b for="Title">Title : </b>
+                <label>{{data_selected_Proc_objectifs ?.Title}}</label> 
+            </div>
+            <div class="field col">
+                <b for="Date">Date de création : </b>
+                <label>{{data_selected_Proc_objectifs ?.Date | date:'dd/MM/yyyy'}}</label>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col" style="width: 100%;">
+                <b for="Description">Description : </b>
+            <label>{{data_selected_Proc_objectifs ?.Description}}</label>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+form .grid {
+  align-items: center;
+}
+
+.checkbox {
+  margin: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.checkbox label {
+  margin: 0px 0px 0px 5px;
+}
+
+.cl-img-organisme {
+  border-radius: 70px;
+}
+
+.cl-fileUpload-organisme {
+  margin-top: 10px;
+}/*# sourceMappingURL=organisme.component.css.map */

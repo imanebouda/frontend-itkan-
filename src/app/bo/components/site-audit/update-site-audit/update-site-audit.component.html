@@ -1,0 +1,39 @@
+<div class="container">
+    <div>
+        <h2>Modifier le Site à Auditer</h2>
+    </div>
+    <form>
+        <div hidden class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID</label>
+            <input type="number"
+                   [(ngModel)]="currentSiteAudit.id"
+                   name="ecartId"
+                   class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom</label>
+            <input type="text"
+                   [(ngModel)]="currentSiteAudit.name"
+                   name="ecartTitle"
+                   class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Address</label>
+            <input type="text"
+                   [(ngModel)]="currentSiteAudit.address"
+                   name="ecartType"
+                   class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Ville</label>
+            <input type="text"
+                   [(ngModel)]="currentSiteAudit.city"
+                   name="ecartType"
+                   class="form-control">
+        </div>
+
+        <div class="mt-2">
+            <button type="submit" (click)="updateSiteAudit()" class="btn btn-success">UPDATE</button>
+        </div>
+    </form>
+</div>

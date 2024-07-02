@@ -1,0 +1,214 @@
+<p-menubar class="mb-1" [model]="menu_items" id="menu_bar"></p-menubar>
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <b for="Titre">Procedure: </b>
+                <label>{{detailProcedure?.Libelle}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="procedure">Processus: </b>
+                <label>{{detailProcedure?.Processus.Libelle}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="Code">Code : </b>
+                <label>{{detailProcedure?.Code}}</label>
+            </div>
+            <div class="field col-4">
+                <b for="Version">Version : </b>
+                <label>{{detailProcedure?.Version}}</label>
+            </div>
+            <div class="field col-4" >
+                <b for="Date ">Date d'application: </b>
+                <label>{{detailProcedure?.created_at  | date: 'dd/MM/yyyy'  }}</label>
+            </div>
+            <div class="field col-12" >
+                <b for="Description">Description: </b>
+                <label>{{detailProcedure?.Description }} </label>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+
+<br>
+<hr>
+<p-fieldset *ngIf="detailProcDocuments" legend="Document" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">   
+                <div class="flex center_media mt-2" style="column-gap: 10px;">
+                    <ng-container >
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Télecharger')" pRipple style="cursor: pointer;"
+                            tooltipPosition="left" pTooltip="Télécharger le document procedure: {{detailProcDocuments?.Libelle}}"
+                            (click)="downloadDocument(p?.procedureID)">
+                            <img *ngIf="detailProcDocuments?.ExtensionFile === '.pdf'" src="./assets/layout/images/icons-pdf.png"   alt="image icons_pdf">
+                            <img *ngIf="detailProcDocuments?.ExtensionFile === '.docx'" src="./assets/layout/images/icons-word.png"  alt="image icons_word">
+                            <img *ngIf="detailProcDocuments?.ExtensionFile === '.xlsx'" src="./assets/layout/images/icons-excel.png"  alt="image icons_excel">
+                            <br>
+                            <label >{{detailProcDocuments?.Libelle}}</label> 
+                        </i>                  
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Modifier') "
+                            pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                            tooltipPosition="left"
+                            pTooltip="Modifier les informations du document : {{detailProcDocuments?.Libelle}} ?"
+                            (click)="ShowFormulaire('modifier',detailProcDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Supprimer')" pButton pRipple
+                        class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                        pTooltip="Supprimer le document : {{detailProcDocuments?.Libelle}} ?" (click)="DeleteAnProcedureDocuments(detailProcDocuments)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Télecharger') "
+                            pButton pRipple class="p-button-rounded p-button-help mr-2" icon="pi pi-download"
+                            tooltipPosition="left" pTooltip="Télécharger le document : {{detailProcDocuments?.Libelle}}"
+                            (click)="downloadDocument(detailProcDocuments?.ProcID)">
+                        </i>
+                    </ng-container>
+                    <ng-container>
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Statut')" pButton pRipple
+                         pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-lock-open" tooltipPosition="right"
+                         pTooltip="Archiver le document : {{detailProcDocuments?.Libelle}} ?" (click)="StatutAnProcedureDocuments(detailProcDocuments )">
+                     </i>
+                    </ng-container>  
+                </div>
+            </div>
+        </div>
+    </div>
+</p-fieldset>
+
+<p-fieldset *ngIf="!detailProcDocuments" legend="Document" [toggleable]="true">
+    <ng-container>
+        <i *ngIf="generalService.canActivate('Documents Procédures-Ajouter') "
+        pButton pRipple class="p-button-rounded p-button-success" icon="pi pi-plus-circle"
+        tooltipPosition="left" pTooltip="Ajouter un document Procedure : {{detailProcDocuments?.Libelle}}"
+        (click)="ShowFormulaire('Ajouté-Document-TL')">
+        </i>
+    </ng-container>
+</p-fieldset>
+<br>
+<hr>
+<p-fieldset  legend="Documents Associés" [toggleable]="true">
+    <div class="summary">
+        <div style="padding-left: 1000px;">
+            <ng-container>
+                <i *ngIf="generalService.canActivate('Documents Procédures-Ajouter') "
+                pButton pRipple class="p-button-rounded p-button-success" icon="pi pi-plus-circle"
+                tooltipPosition="left" label="Créer un document" pTooltip="Ajouter un document procedure : {{p?.Libelle}}"
+                (click)="ShowFormulaire('Ajouté-Document-AS')">
+                </i>
+            </ng-container>
+        </div>
+        <!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-card class="m-1 mt-1 mb-1">
+    <p-table responsiveLayout="scroll" [value]="listProcDocuments" styleClass="p-datatable-responsive-demo"
+        
+        [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="label">
+        <!-- ------------------------------- Header -------------------------------- -->
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+            <tr>
+                <td>
+                    <ng-container >
+                        <i *ngIf="generalService.canActivate('Documents Procédures-Télecharger')" pRipple style="cursor: pointer;"
+                            tooltipPosition="left" pTooltip="Télécharger le document procedure: {{p?.Libelle}}"
+                            (click)="downloadDocument(p?.ProcID)">
+                            <img *ngIf="p?.ExtensionFile === '.pdf'" src="./assets/layout/images/icons-pdf.png"   alt="image icons_pdf">
+                            <img *ngIf="p?.ExtensionFile === '.docx'" src="./assets/layout/images/icons-word.png"  alt="image icons_word">
+                            <img *ngIf="p?.ExtensionFile === '.xlsx'" src="./assets/layout/images/icons-excel.png"  alt="image icons_excel">
+                            <br>
+                            <label >{{p?.Libelle}}</label> 
+                        </i>                  
+                    </ng-container>
+                </td>
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Procédures-Modifier') "
+                                pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                                tooltipPosition="left"
+                                pTooltip="Modifier le document : {{p?.Libelle}} ?"
+                                (click)="ShowFormulaire('modifier',p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Procédures-Supprimer')" pButton pRipple
+                            class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                            pTooltip="Supprimer le document : {{p?.Libelle}} ?" (click)="DeleteAnProcedureDocuments(p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Procédures-Télecharger') "
+                                pButton pRipple class="p-button-rounded p-button-help mr-2" icon="pi pi-download"
+                                tooltipPosition="left" pTooltip="Télécharger le document : {{p?.Libelle}}"
+                                (click)="downloadDocument(p?.ProcID)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Procédures-Statut')" pButton pRipple
+                             pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-lock-open" tooltipPosition="right"
+                             pTooltip="Archiver le document  : {{p?.Libelle}} ?" (click)="StatutAnProcedureDocuments(p )">
+                         </i>
+                        </ng-container>                      
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+</div>
+</p-fieldset>
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '30vw'}">
+    <app-update-proc-documents [data_selected_Dp]="data_selected_Dp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-proc-documents>
+</p-dialog> 
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de document  à Emporter"
+[(visible)]="if_show_ajouter_TL" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+[style]="{'min-width': '30vw'}">
+<app-add-proc-documents-tl *ngIf="if_show_ajouter_TL" (FermerPopUp)="CloseAjouter($event)">
+</app-add-proc-documents-tl>
+</p-dialog> 
+
+ <p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création de documents associé"
+    [(visible)]="if_show_ajouter_AS" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '30vw'}">
+    <app-add-proc-documents *ngIf="if_show_ajouter_AS" (FermerPopUp)="CloseAjouter($event)">
+    </app-add-proc-documents>
+</p-dialog> 
+
+

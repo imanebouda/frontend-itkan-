@@ -1,0 +1,78 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="text-center flex justify-content-center">
+    <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+</div>
+<br>
+<form [formGroup]="clientForm" (ngSubmit)="SubmitForm()">
+    <div class="flex w-100 mb-2">
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Processus</label>
+            <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                [showClear]="true" [options]="processusList" formControlName="ProcessusID" [filter]="true"
+                placeholder="Sélectionnez un processus" emptyFilterMessage="Aucun processus"
+                emptyMessage="Aucun processus" scrollHeight="130px">
+                <ng-template let-element pTemplate="item">
+                    <div class="flex justify-content-between">
+                        <span class="font-12">{{ element?.label }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Code * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && procedureFormErrors?.code.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Code" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Date d'application * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && procedureFormErrors?.CreationDate.errors">
+                ( Invalide )
+            </span>
+            <p-calendar formControlName="CreationDate" dateFormat="dd/mm/yy" ></p-calendar>
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Version  * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && procedureFormErrors?.version.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Version" placeholder="...">
+        </div>
+        <div class="flex flex-column mb-2 w-33">
+            <label class="mb-2">Titre * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && procedureFormErrors?.libelle.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Libelle" placeholder="...">
+        </div> 
+    </div>
+    <div class="flex flex-column ">
+        <div class="flex w-100 mb-2">
+          </div>
+          <div class="flex flex-column mb-2 w-100">
+            <label class="mb-2">Description * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && procedureFormErrors?.Description.errors">
+                ( Invalide )
+            </span>
+            <textarea pInputText type="text" formControlName="Description" placeholder="..."></textarea>
+          </div>
+    </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer"
+                (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Ajouter" (click)="SubmitForm()"
+                    [disabled]="Disabled || is_loading"></button>
+            </div>
+        </div>
+    </div>
+</form>

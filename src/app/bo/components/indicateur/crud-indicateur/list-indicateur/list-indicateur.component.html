@@ -1,0 +1,157 @@
+
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- <app-nav-menu></app-nav-menu> -->
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Processus" [toggleable]="true">
+    <div class="summary">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <b for="Titre">Titre: </b>
+                <label>{{detailProcessus?.Libelle}}</label>
+            </div>  
+            <div class="field col-4">
+                <b for="Titre">Code: </b>
+                <label>{{detailProcessus?.Code}}</label>
+            </div>  
+            <div class="field " >
+                <button pButton pRipple class="p-button-success"
+                    *ngIf="generalService.canActivate('Indicateurs-Ajouter') && generalService.canActivatePilote(detailProcessus)" icon="pi pi-plus-circle" iconPos="left"
+                    type="button" (click)="ShowFormulaire('Ajouté')" tooltipPosition="bottom" label="Créer un indicateur"
+                    pTooltip="Cliquez ici pour créer un nouveau indicateur">
+                </button>
+            </div> 
+        </div>
+    </div>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-fieldset legend="Liste des indicateurs" >
+    <p-table responsiveLayout="scroll" [value]="listIndicateur" styleClass="p-datatable-responsive-demo"
+        (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+        [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+        [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="label">
+        <!-- ------------------------------- Header -------------------------------- -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Libelle">
+                    Titre <p-sortIcon field="Libelle"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Frequence">
+                    Fréquence <p-sortIcon field="Frequence"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Cible">
+                    Cible <p-sortIcon field="Cible"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Tolerance">
+                    Tolerance <p-sortIcon field="Tolerance"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Formule">
+                    Formule <p-sortIcon field="Formule"></p-sortIcon>
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </ng-template>
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+            <tr>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Libelle}}
+                    </span>
+                </td>
+              
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Frequence}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Cible}}
+                    </span>
+                </td>
+                <td >
+                    <span class="badge badge-info">
+                        {{p?.Tolerance}}                
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Formule}}                
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Indicateurs-Modifier') && generalService.canActivatePilote(p.Processus)"
+                                pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                                tooltipPosition="left"
+                                pTooltip="Modifier l'indicateur: {{p?.Libelle}} ?"
+                                (click)="ShowFormulaire('modifier',p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Indicateurs-Supprimer')  && generalService.canActivatePilote(p.Processus)" pButton pRipple
+                            class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                            pTooltip="Supprimer l'indicateur : {{p?.Libelle}} ?" (click)="DeleteAnProcedure(p)">
+                         </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Indicateurs-Détail')"
+                               pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info"
+                               tooltipPosition="right" pTooltip="Afficher le détail de  l'indicateur : {{p?.Libelle}} ?"
+                               (click)="DetailAnProcedure(p)">
+                            </i>
+                        </ng-container>                          
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '40vw'}">
+    <app-update-indicateur [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-indicateur>
+</p-dialog> 
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+ <p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création indicateur"
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '40vw'}">
+    <app-add-indicateur *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+    </app-add-indicateur>
+</p-dialog> 
+
+<p-dialog dismissableMask="true" [resizable]="false" header="Les documents" [(visible)]="if_show_doc" [modal]="true"
+    [baseZIndex]="10000" [style]="{'min-width': '30vw'}">
+    <app-impressions [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_doc"></app-impressions>
+</p-dialog> 

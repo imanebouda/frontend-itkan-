@@ -1,0 +1,55 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<form [formGroup]="Formmulaire_ajout_parametrage" (ngSubmit)="SubmitForm()">
+    <div class="text-center flex justify-content-center mb-4">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <p-fieldset legend="Informations générales">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col" style="width: 50%;">
+                <label class="mb-2">Sites</label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty " [showClear]="true"
+                  [options]="siteList" formControlName="SiteID" [filter]="true" placeholder="Sélectionnez une site"
+                  emptyFilterMessage="Aucune site" emptyMessage="Aucune site" scrollHeight="130px">
+                  <ng-template let-element pTemplate="item">
+                    <div class="flex justify-content-between">
+                      <span class="font-12">{{ element?.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+            <div class="field col">
+                <label>Titre: *</label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.Libelle.errors">
+                    * ( Invalide )
+                </span>
+                <input pInputText type="text" formControlName="Libelle"  placeholder="..."
+                    >
+            </div> 
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <label class="mb-2">Description * : </label>
+                <span class="label_danger ml-1" *ngIf="IsFiled && FormulaireErrors?.Description.errors">
+                    ( Invalide )
+                </span>
+                <textarea pInputText type="text" formControlName="Description" placeholder="..."></textarea>
+            </div>
+        </div>
+    </p-fieldset>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer" (click)="ClosePopUp(false)">
+            </button>
+        </div>
+        <div>
+            <button pButton pRipple type="submit" class="p-button-success" label="Ajouter"
+                [disabled]="Disabled || is_loading">
+            </button>
+        </div>
+    </div>
+</form>

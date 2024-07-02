@@ -1,0 +1,243 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Demos */
+@import "assets/bo/styles/flags/flags.css";
+@import "assets/bo/styles/badges.scss";
+@import "assets/bo/styles/code.scss";
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: url('assets/bo/images/backround/bokeh-blue-vector-background.jpg');
+    background-size: cover;
+}
+
+.layout-topbar {
+    background-image: url('assets/bo/images/header/Header.jpg');
+    background-position: center;
+    box-shadow: 0px 0px 15px 0px white;
+}
+
+.p-calendar,
+.p-inputtext,
+.p-autocomplete {
+    width: 100%;
+}
+
+.pi-bars:before,
+.pi-user:before {
+    color: black;
+    background-color: #cadaeb;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.col {
+    flex-basis: auto !important;
+}
+
+app-usurepneus {
+    .p-panel .p-panel-header,
+    .p-panel .p-panel-content {
+        padding: 7px;
+    }
+}
+
+.w-45 {
+    width: 45%;
+}
+
+.font-text-receb label {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.mat-horizontal-stepper-header-container {
+    background: #d7f5ff;
+}
+
+.p-tabview-nav-content,
+.p-tabview .p-tabview-nav li .p-tabview-nav-lin {
+    background: #d7f5ff;
+}
+
+.p-tabview .p-tabview-nav {
+    background-color: #d7f5ff !important;
+}
+.p-button-error {
+    color: red !important;
+}
+.border-left{
+    border-right: 2px dotted #ebebeb;
+    padding-right: 10px;
+}
+.header_table {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.decision_rtc_img {
+    width: 117px;
+    position: absolute;
+    right: -23px;
+    top: -30px;
+}
+
+.border {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.imglogo {
+    height: 89px !important;
+}
+
+.p-menubar {
+    padding: 0.5rem;
+    background: #fff !important;
+    color: #495057;
+    border-radius: 3px !important;
+    margin-bottom: 0.5rem;
+}
+
+.p-menubar .p-menuitem {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.p-menubar-root-list {
+    flex-wrap: wrap;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.print-footer {
+    border-top: 5px solid;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.label_danger {
+    color: darkred;
+    font-size: 10px;
+}
+
+.layout-menuitem-root-text {
+    background: #f7f7f7 !important;
+    padding: 7px 15px !important;
+}
+
+.layout-sidebar {
+    padding: 0rem;
+}
+
+.layout-root-menuitem:first-child {
+    .layout-menuitem-root-text {
+        margin-top: 0px !important;
+        margin-bottom: 5px;
+    }
+}
+
+.layout-menu ul a {
+    padding: 0.5rem 1rem;
+}
+
+.w-33 {
+    width: 33%;
+    margin-right: 15px;
+}
+
+.w-25 {
+    width: 25%;
+    margin-right: 15px;
+}
+
+.p-dropdown {
+    width: 100%;
+}
+
+.btnimp {
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    .p-button {
+        margin-left: 8px; // Espacement entre les boutons
+    }
+}
+.p-button-label{
+    font-size: 12px;
+}
+
+.p-button.p-button-infoo{
+    background-color: black;
+
+}
+.p-menubar .p-menuitem-link:not(.p-disabled):hover {
+    background:none; // Remplacez #fff par la couleur de fond souhaitée
+    border: none;
+}
+
+
+.p-button{
+    color: #ffffff ;
+    background: #3B82F6;
+    border: 1px solid #3B82F6;
+    .p-menubar .p-menuitem-link .p-menuitem-icon {
+        color: #fff;
+        margin-right: 0.5rem;
+    }
+    .p-menubar .p-menuitem-link .p-menuitem-text {
+        color: #fff;
+    }
+}
+
+.p-menubar .p-menuitem-link{
+
+}
+.bg-green {
+    background-color: rgba(0, 255, 0, 0.1);
+  }
+  
+.bg-red {
+    background-color: #B22222;
+    opacity: 0.7;
+    color: #fff;
+  }
+.bg-yellow{
+    background-color: yellow;
+    opacity: 0.7;
+  }
+
+.p-menubar .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text{
+    color:none;
+}
+
+  // style.scss

@@ -1,0 +1,41 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<div class="text-center flex justify-content-center">
+    <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+        severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+</div>
+<br>
+<form [formGroup]="clientForm" (ngSubmit)="SubmitForm()">
+    <div class="flex w-100 mb-2">
+        <div class="col-6">
+            <label class="mb-2">Title * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcesObjectifsFormErrors?.Title.errors">
+                ( Invalide )
+            </span>
+            <input pInputText type="text" formControlName="Title" placeholder="...">
+        </div>   
+    </div>
+      <div class="col-12">
+        <label class="mb-2">Description * : </label>
+            <span class="label_danger ml-1" *ngIf="IsFiledClientForm && ProcesObjectifsFormErrors?.Description.errors">
+                ( Invalide )
+            </span>
+            <textarea pInputText type="text" formControlName="Description" placeholder="..."></textarea>
+      </div>
+    <div class="text-center flex justify-content-center mt-2">
+        <p-message [showTransitionOptions]="'0ms'" *ngIf="Ifmessage" [hideTransitionOptions]="'500ms'"
+            severity="{{Error==0 ?'success':'error'}}" text="{{ApiMessage}}"></p-message>
+    </div>
+    <div class="flex justify-content-between center_media mt-2">
+        <div>
+            <button pButton pRipple type="button" class="p-button-danger" label="Femer"
+            (click)="ClosePopUp(false)"></button>
+        </div>
+        <div>
+            <div class="wizard-footer">
+                <button pButton pRipple type="button" class="p-button-success" label="Ajouter" (click)="SubmitForm()"
+                    [disabled]="Disabled || is_loading"></button>
+            </div>
+        </div>
+    </div>
+</form>
+

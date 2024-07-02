@@ -1,0 +1,41 @@
+<!-- <app-loader *ngIf="is_loading"></app-loader> -->
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Rechercher des Permissions" [toggleable]="true">
+    <form [formGroup]="FormmulaireRecherche" (ngSubmit)="RechercherPermission()">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col">
+                <label>Rôle</label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                    [options]="liste_roles" formControlName="id_role" [filter]="true" placeholder="..."
+                    emptyFilterMessage="Aucun rôle" emptyMessage="Aucun rôle" scrollHeight="130px">
+                    <ng-template let-element pTemplate="item">
+                        <div class="flex justify-content-between">
+                            <span class="font-12">{{element?.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
+            <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left"
+                label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;">
+            </button>
+        </div>
+    </form>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des permissions ------------------------- -->
+<p-card>
+    <p-pickList (onMoveAllToSource)="onMoveToSource($event)" (onMoveAllToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)" (onMoveToTarget)="onMoveToTarget($event)" [source]="ListePermissions" [target]="ListeAccess" sourceHeader="Permissions non attribuées" targetHeader="Permissions attribuées"
+        [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" filterBy="name"
+        [targetStyle]="{ height: '30rem' }" [showSourceControls]="false" [showTargetControls]="false" breakpoint="1400px">
+        <ng-template let-permission pTemplate="item">
+            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                <div class="flex-1 flex flex-column gap-2">
+                    <span class="font-bold">{{ permission.name }}</span>
+                </div>
+            </div>
+        </ng-template>
+    </p-pickList>
+</p-card>

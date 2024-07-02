@@ -1,0 +1,31 @@
+<form >
+    <div class="cl-table mb-4">
+        <p-table [value]="data_selected_ords" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="ods" >N° ODS<p-sortIcon field="ods"></p-sortIcon></th>
+                    <th pSortableColumn="client">Client<p-sortIcon field="client"></p-sortIcon></th>
+                    <th pSortableColumn="mat">Matricule<p-sortIcon field="mat"></p-sortIcon></th>
+                    <th pSortableColumn="mat">Vérificateur<p-sortIcon field="mat"></p-sortIcon></th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ords>
+                <tr>
+                    <td>{{ ords?.numeroOrds }}</td>
+                    <td>{{ ords?.client }}</td>
+                    <td>{{ ords?.vehicule }}</td>
+                    <td>{{ ords?.verificateur }}</td>
+                    <td class="text-center" >
+                        <div class="cm-action-btn">
+                            <i pButton pRipple class="p-button-rounded p-button-secondary mr-2" icon="pi pi-external-link"
+                                tooltipPosition="left" pTooltip="Détail de l'installation : {{ords?.numero}}"
+                                [routerLink]="['/inspection/detail',ords?.id]">
+                            </i>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

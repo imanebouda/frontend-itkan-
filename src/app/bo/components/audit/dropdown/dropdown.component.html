@@ -1,0 +1,14 @@
+<form [formGroup]="auditeurForm"> <!-- Utilisez le FormGroup parent -->
+    <div class="flex flex-column mb-2" style="width: 50%;">
+        <label class="mb-2">Auditeur</label>
+        <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
+                    [options]="userAuditeur" formControlName="Auditeur" [filter]="true" placeholder="Sélectionnez un Auditeur"
+                    emptyFilterMessage="Aucun Auditeur" emptyMessage="Aucun Auditeur" scrollHeight="130px">
+            <ng-template let-element pTemplate="item">
+                <div class="flex justify-content-between">
+                    <span class="font-12">{{ element?.label }}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+</form>

@@ -1,0 +1,219 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Recherchez les documents" [toggleable]="true">
+    <form [formGroup]="FormmulaireRecherche" (ngSubmit)="SearchProcessus()">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-3">
+                <label>Titre du document </label>
+                <input pInputText type="text" formControlName="libelle" placeholder="...">
+            </div>
+            <div class="field col-3">
+                <label>Version</label>
+                <input pInputText type="text" formControlName="version" placeholder="...">
+            </div>
+            <div class="field col-3">
+                <label>Code</label>
+                <input pInputText type="text" formControlName="code" placeholder="...">
+            </div>
+            <div class="field col-3">
+                <label>Interval de dates</label>
+                <p-calendar dateFormat="dd/mm/yy" appendTo="body" selectionMode="range" formControlName="date"
+                    [readonlyInput]="true"></p-calendar>
+            </div>
+            <div class="field col-6">
+                <label class="mb-2">Processus</label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty " [showClear]="true"
+                  [options]="processusList" formControlName="Processus_ID" [filter]="true" placeholder="Sélectionnez un processus"
+                  emptyFilterMessage="Aucun processus" emptyMessage="Aucun processus" scrollHeight="130px"
+                  (onChange)="onProcessusChange($event)">
+                  <ng-template let-element pTemplate="item">
+                    <div class="flex justify-content-between">
+                      <span class="font-12">{{ element?.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+            </div>
+              
+              <div class="field col-6">
+                <label class="mb-2">Procédures</label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty " [showClear]="true"
+                  [options]="procedureList" formControlName="Procedure_ID" [filter]="true" placeholder="Sélectionnez une procédure"
+                  emptyFilterMessage="Aucune procédure" emptyMessage="Aucune procédure" scrollHeight="130px">
+                  <ng-template let-element pTemplate="item">
+                    <div class="flex justify-content-between">
+                      <span class="font-12">{{ element?.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+              <div class="flex justify-content-center gap-3" style="padding-left: 20px;">
+                <div class="flex align-items-center gap-1">
+                    <label for="MQ">Manuel qualite</label>
+                    <p-checkbox inputId="mqCheckbox" formControlName="MQ" binary="true"></p-checkbox>
+                </div>
+                <div class="flex align-items-center gap-1">
+                    <label for="PQ">Politique qualite</label>
+                    <p-checkbox inputId="pqCheckbox" formControlName="PQ" binary="true"></p-checkbox>
+                </div>
+              </div>   
+        </div>
+        <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
+            <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left"
+                label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;">
+            </button>
+            <div>
+                <button pButton pRipple class="ml-2 p-button-rounded" icon="pi pi-filter-slash" tooltipPosition="left"
+                    pTooltip="Cliquez ici pour vider le formulaire" (click)="ClearSearch()">
+                </button>
+            </div>
+        </div> 
+        
+    </form>
+</p-fieldset>
+<br>
+<hr>
+<!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-card class="m-1 mt-1 mb-1">
+    <p-table responsiveLayout="scroll" [value]="listProcesDocuments" styleClass="p-datatable-responsive-demo"
+        (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+        [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+        [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="label">
+        <!-- ------------------------------- Header -------------------------------- -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Libelle">
+                    Titre <p-sortIcon field="Libelle"></p-sortIcon>
+                </th>
+                <th pSortableColumn="MQ">
+                    MQ  <p-sortIcon field="MQ"></p-sortIcon>
+                </th>
+                <th pSortableColumn="PQ">
+                    PQ  <p-sortIcon field="PQ"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Procedure">
+                    Procédure  <p-sortIcon field="Procedure"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Processus">
+                    Processus  <p-sortIcon field="Processus"></p-sortIcon>
+                </th>
+                <th pSortableColumn="CreationDate">
+                    Date de création  <p-sortIcon field="CreationDate"></p-sortIcon>
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </ng-template>
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+            <tr>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Libelle}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.MQ}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.PQ}}
+                    </span>
+                </td>
+                <td>
+                    <span *ngIf="p?.Procedure" class="badge badge-info">
+                        {{p?.Procedure.Libelle}}
+                    </span>
+                </td>
+                <td>
+                    <span *ngIf="p?.Processus" class="badge badge-info">
+                        {{p?.Processus.Libelle}} 
+                    </span>
+                </td> 
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.CreationDate | date: 'dd/MM/yyyy'}}
+                    </span>
+                </td>             
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Périme-Statut')" pButton pRipple
+                             pButton pRipple class="p-button-rounded p-button-secondary" icon="pi pi-lock" tooltipPosition="right"
+                             pTooltip="Désarchiver le document  : {{p?.Libelle}} ?" (click)="StatutAnProcessusDocuments(p)">
+                            </i>
+                          </ng-container> 
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Périme-Supprimer')" pButton pRipple
+                            class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                            pTooltip="Supprimer le document : {{p?.Libelle}} ?" (click)="DeleteAnDocuments(p)">
+                         </i>
+                        </ng-container>  
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Documents Périme-Détail')"
+                               pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info"
+                               tooltipPosition="right" pTooltip="Détail du document{{p?.Title}} "
+                               (click)="ShowDetailProcessusDocument(p)">
+                            </i>
+                        </ng-container>   
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '80vw'}">
+    <app-update-proces-objectifs [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-proces-objectifs>
+</p-dialog>  -->
+
+ <!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- 
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création l'objectif"
+[(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+[style]="{'min-width': '70vw'}">
+<app-add-proces-objectifs *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+</app-add-proces-objectifs>
+</p-dialog>  -->
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de detail                            -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog dismissableMask="true" [resizable]="false" header="{{Detail_info}}" [(visible)]="if_show_detail" 
+    [maximizable]="true" [modal]="true" [baseZIndex]="10000" [style]="{'width': '50vw'}">
+    <p-card>
+        <app-detail-document-perime [data_selected_proces_documents]="data_selected_proces_documents" *ngIf="if_show_detail">
+        </app-detail-document-perime>
+    </p-card>
+</p-dialog>

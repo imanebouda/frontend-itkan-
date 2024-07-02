@@ -1,0 +1,183 @@
+<app-loader *ngIf="is_loading"></app-loader>
+<!-- <app-nav-menu></app-nav-menu>  -->
+<!-- -------------------- Le formulaire de la recherche --------------------- -->
+<p-fieldset legend="Recherchez les Procédures" [toggleable]="true">
+    <form [formGroup]="FormmulaireRecherche" (ngSubmit)="SearchProcedure()">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-4">
+                <label class="mb-2">Processus</label>
+                <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-untouched ng-dirty "
+                    [showClear]="true" [options]="processusList" formControlName="id" [filter]="true"
+                    placeholder="Sélectionnez un processus" emptyFilterMessage="Aucun processus"
+                    emptyMessage="Aucun processus" scrollHeight="130px">
+                    <ng-template let-element pTemplate="item">
+                        <div class="flex justify-content-between">
+                            <span class="font-12">{{ element?.label }}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div class="field col-4">
+                <label>Code</label>
+                <input pInputText type="text" formControlName="code" placeholder="...">
+            </div>
+            <div class="field col-4">
+                <label>Titre de la procedure </label>
+                <input pInputText type="text" formControlName="libelle" placeholder="...">
+            </div>
+        </div>    
+        <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
+                <button pButton pRipple class="p-button-success" *ngIf="generalService.canActivate('Procédure-Ajouter')"
+                    icon="pi pi-plus-circle" iconPos="left" type="button" (click)="ShowFormulaire('Ajouté')"
+                    tooltipPosition="bottom" label="Créer une procédure"
+                    pTooltip="Cliquez ici pour créer une nouvelle procédure">
+                </button>
+                <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left"
+                    label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;">
+                </button>
+                <div>
+                    <button pButton pRipple class="ml-2 p-button-rounded" icon="pi pi-filter-slash"
+                        tooltipPosition="left" pTooltip="Cliquez ici pour vider le formulaire" (click)="ClearSearch()">
+                    </button>
+                </div>
+        </div> 
+            
+    </form>
+</p-fieldset>
+<br>
+<hr>
+ 
+<!-- ------------------------- La liste des parametrages ----------------------- -->
+<p-fieldset *ngIf="listDeclaration.length > 0 " legend="Liste des procédures">
+    <p-table responsiveLayout="scroll" [value]="listDeclaration" styleClass="p-datatable-responsive-demo"
+        (onSort)="Sort($event)" (onPage)="paginate($event)" [paginator]="true" [rows]="take"
+        [rowsPerPageOptions]="[10,15,20]" [totalRecords]="totalRecords" [lazy]="true" [(first)]="skip"
+        [showCurrentPageReport]="true" dataKey="_id" [sortOrder]="1"
+        currentPageReportTemplate="Affichage {first} à {last} de {totalRecords} résultats" [rowHover]="true"
+        sortField="label">
+        <!-- ------------------------------- Header -------------------------------- -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Processus">
+                    Processus <p-sortIcon field="Processus"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Code">
+                    Code <p-sortIcon field="Code"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Titre">
+                    Titre <p-sortIcon field="Titre"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Version">
+                    Version <p-sortIcon field="Version"></p-sortIcon>
+                </th>
+                <th pSortableColumn="DateApplication">
+                    Date d'application <p-sortIcon field="DateApplication"></p-sortIcon>
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </ng-template>
+        <!-- -------------------------------- Body --------------------------------- -->
+        <ng-template pTemplate="body" let-p let-expanded="expanded">
+            <tr>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Processus}} {{p?.Pilote}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Code}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Libelle}}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge badge-info">
+                        {{p?.Version}}
+                    </span>
+                </td>
+                <td style="width: 15%;">
+                    <span class="badge badge-info">
+                        {{ p?.CreationDate | date: 'dd/MM/yyyy' }}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="cm-action-btn">
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Procédure-Modifier') && generalService.canActivatePilote(p)" pButton pRipple
+                                class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left"
+                                pTooltip="Modifier les informations de Procedure: {{p?.Libelle}} ?"
+                                (click)="ShowFormulaire('modifier',p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Procédure-Supprimier') && generalService.canActivatePilote(p) " pButton pRipple
+                                class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right"
+                                pTooltip="Supprimer Procedure : {{p?.Libelle}} ?" (click)="DeleteAnProcedure(p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Procédure-Détail') && generalService.canActivatePilote(p)" pButton pRipple
+                                class="p-button-rounded p-button-warning" icon="pi pi-info" tooltipPosition="right"
+                                pTooltip="Afficher en détail le Procedure: {{p?.Libelle}} ?"
+                                (click)="DetailAnProcedure(p)">
+                            </i>
+                        </ng-container>
+                        <ng-container>
+                            <i *ngIf="generalService.canActivate('Procédure-Télecharger') " pButton pRipple
+                                class="p-button-rounded p-button-help mr-2" icon="pi pi-download" tooltipPosition="left"
+                                pTooltip="Les documents : {{p?.Libelle}}" (click)="downloadDocument(p?.ID)">
+                            </i>
+                        </ng-container>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">
+                    <div class="text-center">
+                        <div class="center_media">
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
+                        </div>
+                        <p *ngIf="!is_loading" class="font-weight-bold mt-2">
+                            Aucun enregistrement sur la base de données
+                        </p>
+                        <p *ngIf="is_loading" class="font-weight-bold mt-2">
+                            Chargement ...
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Le formulaire de modification                      -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="{{Header_info}}"
+    [(visible)]="if_show_modifier" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '80vw'}">
+    <app-update-procedure [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
+        (FermerPopUp)="CloseUpdate($event)">
+    </app-update-procedure>
+</p-dialog>
+<!----------------------------------------------------------------------- -->
+<!--                        Le formulaire de l'ajout                         -->
+<!-- ----------------------------------------------------------------------- -->
+<p-dialog [dismissableMask]="true" [closable]="false" [resizable]="false" header="Création procédure"
+    [(visible)]="if_show_ajouter" [maximizable]="true" [modal]="true" [baseZIndex]="10000"
+    [style]="{'min-width': '70vw'}">
+    <app-add-procedure *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
+    </app-add-procedure>
+</p-dialog>
+
+<p-dialog dismissableMask="true" [resizable]="false" header="Les documents" [(visible)]="if_show_doc" [modal]="true"
+    [baseZIndex]="10000" [style]="{'min-width': '30vw'}">
+    <app-impressions [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_doc"></app-impressions>
+</p-dialog>

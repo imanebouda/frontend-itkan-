@@ -1,0 +1,14 @@
+form .grid {
+  align-items: center;
+}
+
+.checkbox {
+  margin: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.checkbox label {
+  margin: 0px 0px 0px 5px;
+}/*# sourceMappingURL=update-declaration.component.css.map */
