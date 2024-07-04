@@ -4,6 +4,7 @@ import { ChecklistModel } from 'src/app/models/check_list.model';
 import { ChecklistService } from 'src/app/services/AuditServices/check-list.service';
 import { Modal } from 'bootstrap';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-checklist',
@@ -27,11 +28,10 @@ export class ListChecklistComponent implements OnInit {
   selectedChecklist: ChecklistModel;
   addChecklist: ChecklistModel;
   selectedChecklistId: number;
-
   @ViewChild('updateModal') updateModal: ElementRef;
   @ViewChild('addModal') addModal: ElementRef;
 
-  constructor(private http: HttpClient, private checklistService: ChecklistService) {}
+  constructor(private http: HttpClient, private checklistService: ChecklistService,private router: Router) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -132,4 +132,14 @@ export class ListChecklistComponent implements OnInit {
     const modal = Modal.getInstance(this.addModal.nativeElement);
     modal.hide();
   }
+  navigateToChecklist(checklistId: number): void {
+    console.log('Navigating to Checklist with typeAuditId:', checklistId);
+    if (checklistId !== undefined && checklistId !== null) {
+      this.router.navigate(['/listCheckList', checklistId]);
+    } else {
+      console.error('Invalid typeAuditId:', checklistId);
+    }
+  }
+  
+  
 }

@@ -23,6 +23,7 @@ export class ConstatService {
   }
 
   getTypeConstats(): Observable<TypeContat[]> {
+    console.log(TypeContat);
     return this.http.get<TypeContat[]>(this.typeConstatUrl);
   }
 }

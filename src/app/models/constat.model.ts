@@ -1,10 +1,10 @@
 import {TypeContat} from "./type-contat.model";
 import { QuestionModel } from "./question.model";
-export class ConstatModel{
-        id: number;
+export interface ConstatModel{
+       // ID: number;
         constat: string;
         typeConstatId: number;
-        questionId: number;
+        checklistId: number;
         typeConstat: TypeContat;
         question: QuestionModel;
 }
