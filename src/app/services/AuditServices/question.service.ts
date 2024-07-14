@@ -31,6 +31,7 @@ export class QuestionService {
       code: newQuestion.code,
       description: newQuestion.description,
       typechecklist_id: typeQuestionId,
+      CheckListAuditId: newQuestion.CheckListAuditId,
       typeCheckListAudit: { // Ajouter les données du typeCheckListAudit
         id: typeQuestionId,
         type: "string"

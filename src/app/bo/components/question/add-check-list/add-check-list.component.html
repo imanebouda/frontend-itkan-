@@ -22,6 +22,12 @@
           <option *ngFor="let type of typeCheckListOptions" [ngValue]="type.id">{{ type.type }}</option>
         </select>
       </div>
+      <div class="form-group">
+        <label for="CheckListAuditId">SMQ</label>
+        <select class="form-control" id="CheckListAuditId" formControlName="CheckListAuditId">
+          <option *ngFor="let smq of listSMQ" [ngValue]="smq.id">{{ smq.libelle }}</option>
+        </select>
+      </div>
       
       <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
       <button type="submit" class="btn btn-primary">Soumettre</button>

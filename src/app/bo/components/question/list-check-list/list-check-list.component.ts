@@ -26,7 +26,6 @@ export class ListCheckListComponent implements OnInit {
   is_loading: boolean = true;
   formulaireRecherche: FormGroup;
   typeQuestion: { label: string; value: number }[] = [];
- // typeConstat: { label: string; value: number }[] = [];
   typeConstats: TypeContat[] = [];
   selectedCheckList: QuestionModel;
   addChecklist: QuestionModel;
@@ -46,13 +45,10 @@ export class ListCheckListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.loadquestions();
-    this.loadTypequestions();
-    this.http.get<string[]>('https://localhost:44305/Dropdown/options')
-      .subscribe(options => this.options = options);
+    this.loadQuestions();
+    this.loadTypeQuestions();
     this.route.paramMap.subscribe(params => {
       this.checklistAuditId = +params.get('checklistAuditId');
-      console.log('checklistAuditId from route:', this.checklistAuditId); // Debug log
       this.getQuestionsByChecklistAuditId(this.checklistAuditId);
     });
     this.loadTypeConstats();
@@ -68,15 +64,15 @@ export class ListCheckListComponent implements OnInit {
     });
   }
 
-  loadquestions(): void {
+  loadQuestions(): void {
     this.questionService.getQuestion().subscribe(
       questions => {
         this.questions = questions;
-        this.is_loading = true;
+        this.is_loading = false;
       },
       error => {
         console.error('Error fetching questions:', error);
-        this.is_loading = true;
+        this.is_loading = false;
       }
     );
   }
@@ -91,7 +87,8 @@ export class ListCheckListComponent implements OnInit {
       }
     );
   }
-  loadTypequestions(): void {
+
+  loadTypeQuestions(): void {
     this.questionService.getTypeQuestions().subscribe(
       typeQuestions => {
         this.typeQuestion = typeQuestions.map(tc => ({ label: tc.type, value: tc.id }));
@@ -117,20 +114,20 @@ export class ListCheckListComponent implements OnInit {
         }
       );
     } else {
-      this.loadquestions();
+      this.loadQuestions();
     }
   }
 
   clearSearch(): void {
     this.formulaireRecherche.reset();
-    this.loadquestions();
+    this.loadQuestions();
   }
 
   deleteCheckList(checkListData: QuestionModel): void {
     this.questionService.deleteQuestion(checkListData.id).subscribe(
       response => {
         console.log('Question deleted successfully', response);
-        this.loadquestions();
+        this.loadQuestions();
       },
       error => {
         console.error('Error deleting Question', error);
@@ -146,7 +143,6 @@ export class ListCheckListComponent implements OnInit {
   }
 
   openAddCheckListModal(): void {
-    console.log('add Question:');
     const modal = new Modal(this.addModal.nativeElement);
     modal.show();
   }
@@ -163,17 +159,14 @@ export class ListCheckListComponent implements OnInit {
   }
 
   openAffectConstatModal(checkList: QuestionModel): void {
-    console.log('Selected Question:', checkList);
     this.selectedCheckList = checkList;
     const modal = new Modal(this.constatModal.nativeElement);
     modal.show();
-    console.log(this.selectedCheckList);
   }
 
   saveConstat(): void {
     if (this.constatForm.valid) {
       const newConstat: ConstatModel = {
-        //ID: 0,
         constat: this.constatForm.get('constat')?.value,
         typeConstatId: this.constatForm.get('typeConstatId')?.value,
         checklistId: this.selectedCheckList.id,
@@ -189,28 +182,19 @@ export class ListCheckListComponent implements OnInit {
           console.error('Error creating Constat', error);
         }
       );
-      console.log("this is :"+newConstat);
     }
   }
 
   closeAffectConstatModal(): void {
-    if (this.constatModal && this.constatModal.nativeElement) {
-      const modal = Modal.getInstance(this.constatModal.nativeElement);
-      if (modal) {
-        modal.hide();
-      } else {
-        console.error('constatModal instance is not defined');
-      }
-      this.selectedCheckList = null;
-    }
+    const modal = Modal.getInstance(this.constatModal.nativeElement);
+    modal.hide();
+    this.selectedCheckList = null;
   }
 
   getQuestionsByChecklistAuditId(checklistAuditId: number): void {
     this.is_loading = true;
-    console.log('Fetching questions for checklistAuditId:', checklistAuditId); // Debug log
     this.questionService.getQuestionsByChecklistAuditId(checklistAuditId).subscribe(
       questions => {
-        console.log('Questions fetched successfully:', questions); // Debug log
         this.questions = questions;
         this.is_loading = false;
       },

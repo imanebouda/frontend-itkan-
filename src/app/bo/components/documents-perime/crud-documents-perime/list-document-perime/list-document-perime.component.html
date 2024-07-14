@@ -110,32 +110,32 @@
         <ng-template pTemplate="body" let-p let-expanded="expanded"> 
             <tr>
                 <td>
-                    <span class="badge badge-info">
+                    <span class="black-text">
                         {{p?.Libelle}}
                     </span>
                 </td>
                 <td>
-                    <span class="badge badge-info">
+                    <span class="black-text">
                         {{p?.MQ}}
                     </span>
                 </td>
                 <td>
-                    <span class="badge badge-info">
+                    <span class="black-text">
                         {{p?.PQ}}
                     </span>
                 </td>
                 <td>
-                    <span *ngIf="p?.Procedure" class="badge badge-info">
+                    <span *ngIf="p?.Procedure" class="black-text">
                         {{p?.Procedure.Libelle}}
                     </span>
                 </td>
                 <td>
-                    <span *ngIf="p?.Processus" class="badge badge-info">
+                    <span *ngIf="p?.Processus" class="black-text">
                         {{p?.Processus.Libelle}} 
                     </span>
                 </td> 
                 <td>
-                    <span class="badge badge-info">
+                    <span class="black-text">
                         {{p?.CreationDate | date: 'dd/MM/yyyy'}}
                     </span>
                 </td>             
