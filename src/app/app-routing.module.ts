@@ -26,7 +26,8 @@ import { ListCheckListComponent } from './bo/components/question/list-check-list
 import { AddCheckListComponent } from './bo/components/question/add-check-list/add-check-list.component';
 import { UpdateCheckListComponent } from './bo/components/question/update-check-list/update-check-list.component';
 import { ListChecklistComponent } from './bo/components/check_list/list-check-list/list-check-list.component';
-
+import { ListReclamationsComponent } from './bo/components/reclamations/list-reclamations/list-reclamations.component';
+import { ReclamationDetailsComponent } from './bo/components/reclamations/reclamation-details/reclamation-details.component';
 
 @NgModule({
     imports: [
@@ -70,6 +71,18 @@ import { ListChecklistComponent } from './bo/components/check_list/list-check-li
                                 import(
                                     './bo/components/library/library.module'
                                     ).then((m) => m.LibraryModule),
+                        },
+                        {
+                            path: 'reclamations/list',
+                            component: ListReclamationsComponent,
+                            canActivate: [AuthGuard, AutorisedGuard],
+                            data: { role: 'Reclamations-Consulter' }
+                          },
+                          {
+                            path: 'reclamation-details/:id',
+                            component: ReclamationDetailsComponent,
+                            canActivate: [AuthGuard, AutorisedGuard],
+                            data: { role: 'Reclamations-Consulter' }
                         },
 
                         {

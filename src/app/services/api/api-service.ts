@@ -5,7 +5,7 @@ import {
     HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { GeneralService } from 'src/app/services/general/general.service';
@@ -164,17 +164,13 @@ export class ApiService {
             );
     }
 
-    get(endpoint: string) {
-        return this.http
-            .get(endpoint, {
-                headers: this.createAuthorizationHeader(),
+    get<T>(endpoint: string): Observable<T> {
+        return this.http.get<T>(endpoint, { headers: this.createAuthorizationHeader() }).pipe(
+            catchError((erreur: HttpErrorResponse) => {
+                this.errormessage(erreur?.status);
+                return of({ results: erreur } as any);
             })
-            .pipe(
-                catchError((erreur: HttpErrorResponse) => {
-                    this.errormessage(erreur?.status);
-                    return of({ results: erreur });
-                })
-            );
+        );
     }
 
     getSansHeader(endpoint: string) {

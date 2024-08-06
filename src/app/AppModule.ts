@@ -56,11 +56,17 @@ import {ProgrammeAuditComponent} from "./bo/components/audit/programme-audit/pro
 import { ListChecklistComponent } from './bo/components/check_list/list-check-list/list-check-list.component';
 import { AddChecklistComponent } from './bo/components/check_list/add-check-list/add-check-list.component';
 import { UpdateChecklistComponent } from './bo/components/check_list/update-check-list/update-check-list.component';
+import { ListReclamationsComponent } from './bo/components/reclamations/list-reclamations/list-reclamations.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReclamationService } from './services/reclamations/reclamations.service';
+import { ReclamationDetailsComponent } from './bo/components/reclamations/reclamation-details/reclamation-details.component';
+import { CalendarModule } from 'primeng/calendar';
 registerLocaleData(localeFr);
 
 @NgModule({
     declarations: [
         AppComponent,
+        ReclamationDetailsComponent,
         UpdateChecklistComponent,
         AppComponent,
         AddChecklistComponent,
@@ -83,9 +89,12 @@ registerLocaleData(localeFr);
         ListSiteAuditComponent,
         UpdateSiteAuditComponent,
         DetailAuditComponent,
-        ProgrammeAuditComponent
+        ProgrammeAuditComponent,
+        ListReclamationsComponent
     ],
     imports: [
+        FormsModule,
+        CalendarModule,
         AppRoutingModule,
         AppLayoutModule,
         SharedModule,
@@ -103,7 +112,8 @@ registerLocaleData(localeFr);
         InputTextModule,
         DropdownModule,
         MessageModule,
-        TooltipModule
+        TooltipModule,
+        HttpClientModule
     // PrimeNG modules
         
         //GestionAuditModule
@@ -120,6 +130,7 @@ registerLocaleData(localeFr);
         NodeService,
         PhotoService,
         MessageService,
+        ReclamationService
 
     ],
     bootstrap: [AppComponent],

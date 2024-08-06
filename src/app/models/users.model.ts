@@ -10,4 +10,5 @@ export class UsersModel{
     updatedAt?: Date; // Optional field
     deletedAt?: Date; // Optional field
     idRole: number;
+    
 }

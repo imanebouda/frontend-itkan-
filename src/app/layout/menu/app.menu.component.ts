@@ -181,6 +181,24 @@ export class AppMenuComponent implements OnInit {
 
 
             },
+             {
+        label: 'Gestion',
+        visible: this.generalService.canActivateAll(
+            ['Reclamations-Consulter']
+        ),
+        items: [
+            {
+                label: 'Réclamations',
+                icon: 'fa-solid fa-file-circle-exclamation',
+                routerLink: ['reclamations/list'],
+                visible: this.generalService.canActivate(
+                    'Reclamations-Consulter'
+                ),
+                ispopup: false
+            },
+            
+        ]
+    }
         ];
     }
 }

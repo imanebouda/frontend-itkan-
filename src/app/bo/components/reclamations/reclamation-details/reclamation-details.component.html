@@ -1,0 +1,88 @@
+<div class="fieldset-custom">
+  <div class="legend-custom">Détail de la Réclamation</div>
+  <p-fieldset [toggleable]="true">
+  <div class="p-fluid p-formgrid grid">
+    <div class="field col-6">
+      <b for="objet">Objet : </b>
+      <label>{{ reclamation?.objet }}</label>
+    </div>
+    <div class="field col-6">
+      <b for="analyse">Analyse : </b>
+      <a href="javascript:void(0)" (click)="showAnalyseDialog()">Voir Analyse</a>
+    </div>
+    <div class="field col-6">
+      <b for="status">Status : </b>
+      <label>{{ reclamation?.status }}</label>
+    </div>
+    <div class="field col-6">
+      <b for="reclamant">Réclamant : </b>
+      <label>{{ reclamation?.reclamantNom }} {{ reclamation?.reclamantPrenom }}</label>
+    </div>
+    <div class="field col-6">
+      <b for="responsable">Responsable : </b>
+      <label>{{ reclamation?.responsableNomComplet }}</label>
+    </div>
+    <div class="field col-6">
+      <b for="creationDate">Date de Réclamation : </b>
+      <label>{{ reclamation?.creationDate | date: 'dd/MM/yyyy' }}</label>
+    </div>
+  </div>
+</p-fieldset>
+
+
+<p-card class="m-1 mt-1 mb-1 card-content">
+  <div class="card-header">
+    <h3  class="card-title">Comité Réclamation</h3>
+    <button pButton type="button" label="" icon="pi pi-plus" class="p-button-success p-button-rounded p-button-circle" (click)="showAddUserModal()"></button>
+  </div>
+  
+  <p-table responsiveLayout="scroll" [value]="concernedUsers" styleClass="p-datatable-responsive-demo" 
+    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="concernedUsers.length">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nomCompletUtilisateur">Nom Complet <p-sortIcon field="nomCompletUtilisateur"></p-sortIcon></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.nomCompletUtilisateur }}</td>
+        <td>{{ user.email }}</td>
+        <td class="text-center">
+          <div class="cm-action-btn">
+            <i pButton pRipple class="p-button-rounded p-button-danger ml-2" icon="pi pi-trash" tooltipPosition="left" 
+              (click)="removeUserFromComitee(user)">
+            </i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="text-center">Aucun membre trouvé</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+ 
+<p-dialog header="Ajouter un Membre" [(visible)]="addUserDialogVisible" [modal]="true" [responsive]="true" [style]="{width: '600px', height: '400px'}">
+  <div class="p-grid p-fluid">
+    <div class="p-col-12 mb-4">
+      <label for="selectedUser">Sélectionner un Membre</label>
+      <p-dropdown [options]="filteredUsers" [(ngModel)]="selectedUser" optionLabel="nomCompletUtilisateur" placeholder="Choisir un membre"></p-dropdown>
+    </div>
+    <div class="p-col-12 button-container">
+      <button pButton type="button" label="Ajouter" icon="pi pi-check" class="p-button-success p-button-sm" (click)="addUserToCard()"></button>
+      <button pButton type="button" label="Enregistrer" icon="pi pi-save" class="p-button-info p-button-sm" (click)="saveComitee()"></button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Analyse" [(visible)]="analyseDialogVisible" [modal]="true" [responsive]="true" [width]="500">
+  <p>{{ reclamation?.analyse }}</p>
+  <div class="p-dialog-footer">
+    <button type="button" pButton icon="pi pi-times" (click)="hideAnalyseDialog()" label="Close"></button>
+  </div>
+</p-dialog>
