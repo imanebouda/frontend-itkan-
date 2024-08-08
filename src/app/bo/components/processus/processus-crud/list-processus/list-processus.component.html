@@ -80,16 +80,16 @@
                 </th>
             </tr>
         </ng-template>
-      
+
         <!-- -------------------------------- Body --------------------------------- -->
-        <ng-template pTemplate="body" let-p let-expanded="expanded"> 
+        <ng-template pTemplate="body" let-p let-expanded="expanded">
             <tr>
                 <td>
                     <span class="badge badge-info">
                         {{p?.Code}}
                     </span>
                 </td>
-              
+
                 <td>
                     <span class="badge badge-info">
                         {{p?.Libelle}}
@@ -117,8 +117,8 @@
                 </td>
                 <td style="width: 15%;">
                     <span class="badge badge-info">
-                        {{ p?.CreationDate | date: 'dd/MM/yyyy'  }}    
-                      
+                        {{ p?.CreationDate | date: 'dd/MM/yyyy'  }}
+
                     </span>
                 </td>
                 <td class="text-center">
@@ -151,8 +151,9 @@
                             (click)="downloadDocument(p?.ID)">
                             </i>
                         </ng-container>
-                                                 
+
                     </div>
+
                 </td>
             </tr>
         </ng-template>
@@ -161,7 +162,7 @@
                 <td [attr.colspan]="7">
                     <div class="text-center">
                         <div class="center_media">
-                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">                    
+                            <img src="./assets/layout/images/no_data.svg" width="120px" alt="image no_data">
                         </div>
                         <p *ngIf="!is_loading" class="font-weight-bold mt-2">
                             Aucun enregistrement sur la base de données
@@ -184,7 +185,7 @@
     <app-update-processus [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_modifier"
         (FermerPopUp)="CloseUpdate($event)">
     </app-update-processus>
-</p-dialog> 
+</p-dialog>
  <!----------------------------------------------------------------------- -->
 <!--                        Le formulaire de l'ajout                         -->
 <!-- ----------------------------------------------------------------------- -->
@@ -193,10 +194,10 @@
     [style]="{'min-width': '70vw'}" [style]="{'width': '70vw'}">
     <app-add-processus *ngIf="if_show_ajouter" (FermerPopUp)="CloseAjouter($event)">
     </app-add-processus>
-</p-dialog> 
+</p-dialog>
 
 <p-dialog dismissableMask="true" [resizable]="false" header="Les documents" [(visible)]="if_show_doc" [modal]="true"
     [baseZIndex]="10000" [style]="{'min-width': '30vw'}">
     <app-impressions [data_selected_ddp]="data_selected_ddp" *ngIf="if_show_doc"></app-impressions>
-</p-dialog> 
+</p-dialog>
 

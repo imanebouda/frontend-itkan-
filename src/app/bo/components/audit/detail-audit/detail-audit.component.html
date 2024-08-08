@@ -33,6 +33,8 @@
 
 
     <p-card class="m-1 mt-1 mb-1">
+        <h2 class="table-title">Liste des Audits</h2>
+
         <p-table responsiveLayout="scroll" [value]="constats" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="constats.length" [lazy]="true" [sortOrder]="1" sortField="id">
           <ng-template pTemplate="header">
             <tr>
@@ -42,8 +44,11 @@
               <th class="text-center">Actions</th>
             </tr>
           </ng-template>
+
           <ng-template pTemplate="body" let-constat>
+
             <tr>
+
               <td>{{ constat.constat }}</td>
               <td>{{ constat.typeConstat?.type }}</td>
               <td>{{ constat.checklist?.name }}</td>
@@ -51,17 +56,23 @@
                 <div class="cm-action-btn">
                   <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left" (click)="openUpdateDialog(constat)"></i>
                   <i pButton pRipple class="p-button-rounded p-button-danger ml-2" icon="pi pi-trash" tooltipPosition="left" (click)="deleteConstat(constat)"></i>
+
                 </div>
               </td>
             </tr>
+
           </ng-template>
-          <ng-template pTemplate="emptymessage">
+
+
+            <ng-template pTemplate="emptymessage">
             <tr>
               <td colspan="5" class="text-center">Aucun Constat trouvé</td>
             </tr>
           </ng-template>
         </p-table>
       </p-card>
-      
+    <i pButton pRipple class="p-button-rounded p-button-warning" style="background-color: black;" icon="pi pi-pencil" label="Créer Constat" tooltipPosition="right" [routerLink]="['/list_Check_List']"></i>
+
+
 
 </div>
